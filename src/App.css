@@ -129,18 +129,78 @@
   }
 }
 
-/* ---------- Reveal on load ---------- */
-.reveal {
+/* ---------- Cinematic staggered entrance ---------- */
+.cine {
   opacity: 0;
-  transform: translateY(18px);
-  animation: reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: translateY(30px) scale(0.97);
+  animation: cineIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0s);
 }
 
-@keyframes reveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes cineIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+    filter: blur(4px);
   }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ---------- Scroll-triggered fade-in ---------- */
+.fade-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Scroll-driven side flora ---------- */
+.scroll-flora {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 3;
+}
+.scroll-flora-side {
+  position: absolute;
+  top: -20px;
+  width: 260px;
+  transition: transform 0.1s linear, opacity 0.1s linear;
+}
+.scroll-flora-left {
+  left: -40px;
+}
+.scroll-flora-right {
+  right: -40px;
+  transform: scaleX(-1);
+}
+.scroll-flora-extra {
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  width: 200px;
+  height: 200px;
+  opacity: 0.8;
+  animation: sway 9s ease-in-out infinite;
+}
+.scroll-flora-extra-low {
+  position: absolute;
+  top: 220px;
+  left: -20px;
+  width: 170px;
+  height: 170px;
+  opacity: 0.6;
+  animation: sway 7s ease-in-out infinite reverse;
 }
 
 /* ---------- Hero ---------- */
@@ -166,24 +226,25 @@
 }
 
 .monogram {
-  width: 76px;
-  height: 76px;
+  width: 90px;
+  height: 90px;
   margin: 0 auto 0.5rem;
   display: grid;
   place-items: center;
   font-family: var(--display);
-  font-size: 2.4rem;
+  font-size: 1.5rem;
   color: var(--rose-deep);
   border: 2px solid var(--gold);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
 }
 
 .hero-name {
   font-family: var(--script);
   font-weight: 400;
-  font-size: clamp(4rem, 14vw, 7.5rem);
-  line-height: 0.95;
+  font-size: clamp(2.8rem, 10vw, 5.5rem);
+  line-height: 1;
   margin: 0;
   color: var(--rose-deep);
   text-shadow: 0 3px 12px rgba(232, 154, 184, 0.4);
@@ -458,6 +519,39 @@ main {
   margin: 0.25rem 0 0;
 }
 
+/* ---------- Venue map ---------- */
+.map-section {
+  margin-bottom: 3.5rem;
+}
+.venue-map {
+  max-width: 640px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(194, 99, 138, 0.16);
+  border: 1px solid var(--card-border);
+}
+.venue-map iframe {
+  width: 100%;
+  height: 340px;
+  border: none;
+  display: block;
+}
+.venue-map-link {
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  background: var(--card);
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--rose-deep);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.venue-map-link:hover {
+  background: rgba(232, 154, 184, 0.15);
+}
+
 @media (max-width: 480px) {
   .field-row {
     flex-direction: column;
@@ -466,5 +560,25 @@ main {
   .spray {
     width: 150px;
     height: 150px;
+  }
+  .scroll-flora-side {
+    width: 140px;
+  }
+  .scroll-flora-extra,
+  .scroll-flora-extra-low {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .petals,
+  .scroll-flora {
+    display: none;
   }
 }

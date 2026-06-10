@@ -2,6 +2,8 @@ import Countdown from './components/Countdown'
 import RsvpForm from './components/RsvpForm'
 import Petals from './components/Petals'
 import FloralSpray from './components/FloralSpray'
+import ScrollFlora from './components/ScrollFlora'
+import VenueMap from './components/VenueMap'
 import { eventConfig } from './eventConfig'
 import './App.css'
 
@@ -30,7 +32,7 @@ function FloralDivider() {
 
 function App() {
   const {
-    celebrant,
+    celebrants,
     age,
     title,
     dateISO,
@@ -40,35 +42,42 @@ function App() {
     address,
     dressCode,
     note,
+    mapLat,
+    mapLng,
+    mapZoom,
   } = eventConfig
+
+  const names = celebrants.join(' & ')
+  const initials = celebrants.map((n) => n.charAt(0)).join(' & ')
 
   return (
     <div className="page">
       <Petals />
-      <FloralSpray className="spray spray-tl" />
-      <FloralSpray className="spray spray-br" />
+      <ScrollFlora />
 
       <header className="hero">
         <FloralSpray className="spray spray-hero-l" />
         <FloralSpray className="spray spray-hero-r" />
 
-        <p className="hero-eyebrow reveal">{title}</p>
-        <div className="monogram reveal" style={{ animationDelay: '0.1s' }}>
-          {celebrant.charAt(0)}
+        <p className="hero-eyebrow cine" style={{ '--d': '0s' }}>
+          {title}
+        </p>
+        <div className="monogram cine" style={{ '--d': '0.2s' }}>
+          {initials}
         </div>
-        <h1 className="hero-name reveal" style={{ animationDelay: '0.2s' }}>
-          {celebrant}
+        <h1 className="hero-name cine" style={{ '--d': '0.45s' }}>
+          {names}
         </h1>
-        <p className="hero-subtitle reveal" style={{ animationDelay: '0.3s' }}>
-          is turning <span className="hero-age">{age}</span>
+        <p className="hero-subtitle cine" style={{ '--d': '0.65s' }}>
+          are turning <span className="hero-age">{age}</span>
         </p>
         <FloralDivider />
-        <div className="reveal" style={{ animationDelay: '0.4s' }}>
+        <div className="cine" style={{ '--d': '0.85s' }}>
           <Countdown dateISO={dateISO} />
         </div>
         <a
-          className="btn btn-primary hero-cta reveal"
-          style={{ animationDelay: '0.5s' }}
+          className="btn btn-primary hero-cta cine"
+          style={{ '--d': '1.1s' }}
           href="#rsvp"
         >
           RSVP
@@ -76,7 +85,7 @@ function App() {
       </header>
 
       <main>
-        <section className="details" aria-labelledby="details-heading">
+        <section className="details fade-section" aria-labelledby="details-heading">
           <h2 id="details-heading" className="section-title">
             Celebration Details
           </h2>
@@ -94,10 +103,24 @@ function App() {
               <p>{dressCode}</p>
             </DetailCard>
           </div>
-          {note && <p className="details-note">“{note}”</p>}
+          {note && <p className="details-note">"{note}"</p>}
         </section>
 
-        <section id="rsvp" className="rsvp" aria-labelledby="rsvp-heading">
+        <section className="map-section fade-section" aria-labelledby="map-heading">
+          <h2 id="map-heading" className="section-title">
+            Find Us Here
+          </h2>
+          <FloralDivider />
+          <VenueMap
+            lat={mapLat}
+            lng={mapLng}
+            zoom={mapZoom}
+            venue={venue}
+            address={address}
+          />
+        </section>
+
+        <section id="rsvp" className="rsvp fade-section" aria-labelledby="rsvp-heading">
           <FloralSpray className="spray spray-rsvp" />
           <h2 id="rsvp-heading" className="section-title">
             Will You Join Us?
@@ -112,7 +135,7 @@ function App() {
 
       <footer className="footer">
         <FloralDivider />
-        <p className="footer-script">With love, {celebrant}</p>
+        <p className="footer-script">With love, {names}</p>
         <p className="footer-sub">Hope to see you on {dateLabel}</p>
       </footer>
     </div>
