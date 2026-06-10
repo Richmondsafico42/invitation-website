@@ -1,31 +1,35 @@
 // Edit these details to customize the invitation.
 export const eventConfig = {
-  // Dual celebrants for a joint 60th birthday
-  celebrants: ['Maria', 'Jose'],
+  // Dual celebrants — 60th birthday & 32nd wedding anniversary
+  celebrants: ['Mel', 'Vic'],
   age: 60,
+  weddingYears: 32,
   title: "You're Cordially Invited",
+  subtitle: 'Celebrating 60 Years of Purpose & 32 Years of Promise',
   // ISO date string for the party (used for the countdown)
-  dateISO: '2026-08-15T18:00:00',
-  dateLabel: 'Saturday, August 15, 2026',
-  timeLabel: '6:00 PM – 11:00 PM',
+  dateISO: '2026-07-18T16:30:00',
+  dateLabel: 'Saturday, July 18, 2026',
+  timeLabel: '4:30 PM onwards',
   venue: 'The Garden Terrace',
   address: '123 Celebration Ave, Manila',
   dressCode: 'Ladies: Pink · Gentlemen: Blue',
-  note: 'Come celebrate six decades of love, life, and laughter with us!',
+  note: 'Come celebrate six decades of life and thirty-two years of love with us!',
   // Map coordinates for venue (lat, lng)
   mapLat: 14.5995,
   mapLng: 120.9842,
   mapZoom: 16,
-  // Celebrant photos — replace with real .jpg/.png paths in public/celebrants/
+  // Celebrant photos — individual images (no background, standing to the side)
   celebrantProfiles: [
     {
-      name: 'Maria',
-      tagline: '60 years of grace',
+      name: 'Mel',
+      fullName: 'Imelda Serrano',
+      tagline: '60 years of purpose',
       photo: '/celebrants/maria.svg',
     },
     {
-      name: 'Jose',
-      tagline: '60 years of joy',
+      name: 'Vic',
+      fullName: 'Victoriano Serrano',
+      tagline: '60 years of promise',
       photo: '/celebrants/jose.svg',
     },
   ],

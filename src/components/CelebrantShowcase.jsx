@@ -48,7 +48,7 @@ function useScrollProgress(ref) {
   return progress
 }
 
-function CelebrantCard({ person, side, progress }) {
+function CelebrantPhoto({ person, side, progress }) {
   const state = getSlideState(progress)
   const fromSide = side === 'left' ? -1 : 1
   const enterX = (1 - state.enter) * fromSide * 115
@@ -68,12 +68,11 @@ function CelebrantCard({ person, side, progress }) {
       }}
     >
       <div className="celebrant-frame">
-        <img src={person.photo} alt={person.name} className="celebrant-photo" />
+        <img src={person.photo} alt={person.fullName || person.name} className="celebrant-photo" />
         <div className="celebrant-frame-glow" aria-hidden="true" />
       </div>
       <figcaption className="celebrant-caption">
-        <span className="celebrant-name">{person.name}</span>
-        {person.tagline && <span className="celebrant-tagline">{person.tagline}</span>}
+        <span className="celebrant-fullname">{person.fullName || person.name}</span>
       </figcaption>
     </figure>
   )
@@ -118,19 +117,25 @@ export default function CelebrantShowcase({ celebrants = [], age }) {
         </p>
 
         <div className="celebrant-stage" aria-hidden={progress < 0.05 || progress > 0.95}>
-          <CelebrantCard person={celebrants[0]} side="left" progress={progress} />
+          {/* Left — Mel's photo on the side */}
+          <CelebrantPhoto person={celebrants[0]} side="left" progress={progress} />
+
+          {/* Center — Names block */}
           <div
-            className="celebrant-ampersand"
+            className="celebrant-center-names"
             style={{
               opacity: slideState.opacity,
               transform: `scale(${0.5 + slideState.enter * 0.5}) rotate(${(1 - slideState.enter) * 20}deg)`,
               filter: `blur(${(1 - slideState.enter) * 3}px)`,
             }}
-            aria-hidden="true"
           >
-            &
+            <span className="celebrant-name celebrant-name--left">{celebrants[0].name}</span>
+            <span className="celebrant-ampersand">&</span>
+            <span className="celebrant-name celebrant-name--right">{celebrants[1].name}</span>
           </div>
-          <CelebrantCard person={celebrants[1]} side="right" progress={progress} />
+
+          {/* Right — Vic's photo on the side */}
+          <CelebrantPhoto person={celebrants[1]} side="right" progress={progress} />
         </div>
 
         <p className="celebrant-scroll-hint" style={{ opacity: Math.max(0, 1 - progress * 2.5) }}>

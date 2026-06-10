@@ -57,6 +57,7 @@ function App() {
     celebrantProfiles,
     age,
     title,
+    subtitle,
     dateISO,
     dateLabel,
     timeLabel,
@@ -92,7 +93,7 @@ function App() {
           {names}
         </h1>
         <p className="hero-subtitle cine" style={{ '--d': '0.65s' }}>
-          Joint <span className="hero-age">{age}<sup>th</sup></span> Birthday Celebration
+          {subtitle}
         </p>
 
         {/* ── Combined celebrants photo ── */}
@@ -102,7 +103,7 @@ function App() {
         >
           <img
             src="/celebrants/together.svg"
-            alt="Maria and Jose together"
+            alt={`${celebrants.join(' and ')} together`}
             className="hero-couple-img"
           />
         </div>
