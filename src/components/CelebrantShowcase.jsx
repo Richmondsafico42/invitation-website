@@ -32,9 +32,15 @@ function useScrollProgress(ref) {
       if (!ref.current) return
       const rect = ref.current.getBoundingClientRect()
       const windowH = window.innerHeight
-      const total = rect.height + windowH
-      const scrolled = windowH - rect.top
-      setProgress(Math.min(Math.max(scrolled / total, 0), 1))
+      const stickyRange = rect.height - windowH
+      if (stickyRange <= 0) {
+        setProgress(0)
+        ticking = false
+        return
+      }
+      const scrolled = -rect.top
+      const pct = scrolled / stickyRange
+      setProgress(Math.min(Math.max(pct, 0), 1))
       ticking = false
     }
 

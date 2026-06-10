@@ -11,6 +11,7 @@ import { eventConfig } from './eventConfig'
 import togetherPhoto from './assets/together.svg'
 import topLeftDesign from './assets/left.svg'
 import topRightDesign from './assets/right.svg'
+import disortDesign from './assets/disort.svg'
 import './App.css'
 
 
@@ -83,6 +84,14 @@ function App() {
       <div className="top-corner-designs" aria-hidden="true">
         <img src={topLeftDesign} alt="" className="top-design top-design--left" />
         <img src={topRightDesign} alt="" className="top-design top-design--right" />
+      </div>
+
+      <div className="scattered-container" aria-hidden="true">
+        <img src={disortDesign} alt="" className="scattered-design" style={{ top: '12%', left: '-80px', '--speed-x': '0.08', '--speed-y': '-0.12', '--rot-speed': '0.03', width: '220px' }} />
+        <img src={disortDesign} alt="" className="scattered-design" style={{ top: '35%', right: '-90px', '--speed-x': '-0.1', '--speed-y': '-0.15', '--rot-speed': '-0.04', width: '250px' }} />
+        <img src={disortDesign} alt="" className="scattered-design" style={{ top: '58%', left: '-70px', '--speed-x': '0.06', '--speed-y': '-0.1', '--rot-speed': '0.02', width: '200px' }} />
+        <img src={disortDesign} alt="" className="scattered-design" style={{ top: '76%', right: '-60px', '--speed-x': '-0.08', '--speed-y': '-0.12', '--rot-speed': '-0.03', width: '240px' }} />
+        <img src={disortDesign} alt="" className="scattered-design" style={{ top: '90%', left: '-50px', '--speed-x': '0.1', '--speed-y': '-0.18', '--rot-speed': '0.04', width: '210px' }} />
       </div>
 
       <div className="page">

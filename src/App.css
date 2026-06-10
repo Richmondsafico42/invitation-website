@@ -1156,13 +1156,13 @@ main {
 
 .celebrant-name-tag--top-right {
   top: 15%;
-  right: -10%;
+  right: -5%;
   text-align: left;
 }
 
 .celebrant-name-tag--bottom-left {
   bottom: 15%;
-  left: -10%;
+  left: -5%;
   text-align: left;
 }
 
@@ -1201,11 +1201,11 @@ main {
   }
   .celebrant-name-tag--top-right {
     top: 10%;
-    right: -15%;
+    right: -8%;
   }
   .celebrant-name-tag--bottom-left {
     bottom: 10%;
-    left: -15%;
+    left: -8%;
   }
 }
 
@@ -1217,11 +1217,11 @@ main {
   }
   .celebrant-name-tag--top-right {
     top: 8%;
-    right: -24%;
+    right: -10%;
   }
   .celebrant-name-tag--bottom-left {
     bottom: 8%;
-    left: -24%;
+    left: -10%;
   }
 }
 
@@ -1233,7 +1233,7 @@ main {
   width: 100vw;
   height: 100%;
   pointer-events: none;
-  z-index: 1; /* behind hero elements but above background */
+  z-index: 10; /* above hero elements to make them fully viewable */
   overflow: clip;
 }
 
@@ -1262,6 +1262,42 @@ main {
   .top-design {
     width: clamp(140px, 28vw, 260px);
     opacity: calc(1 - var(--scroll-progress, 0) * 4.5);
+  }
+}
+
+/* ---------- Scattered Background Designs ---------- */
+.scattered-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1; /* behind text card boxes but above background */
+  overflow: clip;
+}
+
+.scattered-design {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.18; /* soft background blend */
+  filter: drop-shadow(0 6px 12px rgba(123, 94, 167, 0.06));
+  will-change: transform;
+  transform: translate3d(
+    calc(var(--scroll-y, 0px) * var(--speed-x, 0)),
+    calc(var(--scroll-y, 0px) * var(--speed-y, 0)),
+    0
+  ) rotate(calc(var(--scroll-y, 0px) * var(--rot-speed, 0) * 1deg));
+}
+
+@media (max-width: 768px) {
+  .scattered-design {
+    opacity: 0.12;
+    transform: translate3d(
+      calc(var(--scroll-y, 0px) * var(--speed-x, 0) * 0.5),
+      calc(var(--scroll-y, 0px) * var(--speed-y, 0) * 0.5),
+      0
+    ) rotate(calc(var(--scroll-y, 0px) * var(--rot-speed, 0) * 0.5 * 1deg));
   }
 }
 
