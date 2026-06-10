@@ -6,6 +6,7 @@ export default function ScrollMotion() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     let centers = []
+    let ticking = false
 
     function recalculateCenters() {
       const scrollY = window.scrollY
