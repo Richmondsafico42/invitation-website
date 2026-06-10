@@ -34,7 +34,7 @@ export default function RsvpForm() {
 
   if (submitted) {
     return (
-      <div className="rsvp-success" role="status">
+      <div className="rsvp-success cine" style={{ '--d': '0s' }} role="status">
         <h3>Thank you, {form.name}! 🎈</h3>
         <p>
           {form.attending === 'yes'
@@ -57,7 +57,7 @@ export default function RsvpForm() {
 
   return (
     <form className="rsvp-form" onSubmit={handleSubmit} noValidate>
-      <div className="field">
+      <div className="field rsvp-field-anim" style={{ '--i': 4 }}>
         <label htmlFor="name">Full name</label>
         <input
           id="name"
@@ -70,7 +70,7 @@ export default function RsvpForm() {
         {errors.name && <span className="error">{errors.name}</span>}
       </div>
 
-      <div className="field">
+      <div className="field rsvp-field-anim" style={{ '--i': 5 }}>
         <label htmlFor="email">Email</label>
         <input
           id="email"
@@ -83,7 +83,7 @@ export default function RsvpForm() {
         {errors.email && <span className="error">{errors.email}</span>}
       </div>
 
-      <div className="field-row">
+      <div className="field-row rsvp-field-anim" style={{ '--i': 6 }}>
         <div className="field">
           <label htmlFor="attending">Will you attend?</label>
           <select
@@ -115,7 +115,7 @@ export default function RsvpForm() {
         </div>
       </div>
 
-      <div className="field">
+      <div className="field rsvp-field-anim" style={{ '--i': 7 }}>
         <label htmlFor="message">Message (optional)</label>
         <textarea
           id="message"
@@ -126,7 +126,7 @@ export default function RsvpForm() {
         />
       </div>
 
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary rsvp-field-anim" style={{ '--i': 8 }}>
         Send RSVP
       </button>
     </form>

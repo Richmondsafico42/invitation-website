@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import FloralSpray from './FloralSpray'
 
-// Floral sprays on both sides that start visible at the top and slide/fade
-// outward as the user scrolls down — like curtains parting.
 export default function ScrollFlora() {
   const [progress, setProgress] = useState(0)
   const ticking = useRef(false)
@@ -14,25 +12,36 @@ export default function ScrollFlora() {
       requestAnimationFrame(() => {
         const scrollY = window.scrollY
         const windowH = window.innerHeight
-        const p = Math.min(scrollY / (windowH * 0.7), 1)
-        setProgress(p)
+        const docH = document.documentElement.scrollHeight - windowH
+        const pageProgress = docH > 0 ? scrollY / docH : 0
+        const enterProgress = Math.min(scrollY / (windowH * 0.65), 1)
+        setProgress({ enter: enterProgress, page: pageProgress })
         ticking.current = false
       })
     }
+
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
-  const spreadX = progress * 160
-  const opacity = 1 - progress
-  const scale = 1 + progress * 0.15
+  const spreadX = progress.enter * 220
+  const spreadY = progress.enter * 40
+  const opacity = Math.max(0, 1 - progress.enter * 1.1)
+  const scale = 1 + progress.enter * 0.22
+  const rotate = progress.enter * 12
+  const pageDrift = progress.page * 30
 
   return (
     <div className="scroll-flora" aria-hidden="true">
       <div
         className="scroll-flora-side scroll-flora-left"
         style={{
-          transform: `translateX(${-spreadX}px) scale(${scale})`,
+          transform: `translate(${-spreadX}px, ${spreadY + pageDrift}px) scale(${scale}) rotate(${-rotate}deg)`,
           opacity,
         }}
       >
@@ -43,7 +52,7 @@ export default function ScrollFlora() {
       <div
         className="scroll-flora-side scroll-flora-right"
         style={{
-          transform: `translateX(${spreadX}px) scale(${scale})`,
+          transform: `translate(${spreadX}px, ${spreadY + pageDrift}px) scale(${scale}) rotate(${rotate}deg)`,
           opacity,
         }}
       >
