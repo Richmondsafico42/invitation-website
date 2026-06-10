@@ -1,3 +1,6 @@
+import melPhoto from './assets/mel.svg'
+import vicPhoto from './assets/vic.svg'
+
 // Edit these details to customize the invitation.
 export const eventConfig = {
   // Dual celebrants — 60th birthday & 32nd wedding anniversary
@@ -24,13 +27,14 @@ export const eventConfig = {
       name: 'Mel',
       fullName: 'Imelda Serrano',
       tagline: '60th birthday celebrant',
-      photo: '/celebrants/mel.svg',
+      photo: melPhoto,
     },
     {
       name: 'Vic',
       fullName: 'Victoriano Serrano',
       tagline: '32nd anniversary celebrant',
-      photo: '/celebrants/vic.svg',
+      photo: vicPhoto,
     },
   ],
 }
+

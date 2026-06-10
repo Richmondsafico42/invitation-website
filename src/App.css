@@ -1134,3 +1134,91 @@ main {
     display: none;
   }
 }
+
+/* ---------- Celebrant Name Tags ---------- */
+.celebrant-name-tag {
+  position: absolute;
+  z-index: 10;
+  padding: 1.15rem 1.6rem;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 20px;
+  box-shadow: 0 12px 38px rgba(123, 94, 167, 0.14);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  max-width: 240px;
+}
+
+.celebrant-name-tag--top-right {
+  top: 15%;
+  right: -10%;
+  text-align: left;
+}
+
+.celebrant-name-tag--bottom-left {
+  bottom: 15%;
+  left: -10%;
+  text-align: left;
+}
+
+.celebrant-tag-name {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  color: var(--rose-deep);
+  line-height: 1.2;
+}
+
+.celebrant-tag-role {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(0.78rem, 1.4vw, 0.95rem);
+  font-style: italic;
+  color: var(--gold);
+  margin-top: 0.35rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Micro-animations */
+.celebrant-card:hover .celebrant-name-tag {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 46px rgba(123, 94, 167, 0.22);
+}
+
+@media (max-width: 768px) {
+  .celebrant-name-tag {
+    padding: 0.85rem 1.2rem;
+    border-radius: 16px;
+    max-width: 180px;
+  }
+  .celebrant-name-tag--top-right {
+    top: 10%;
+    right: -8%;
+  }
+  .celebrant-name-tag--bottom-left {
+    bottom: 10%;
+    left: -8%;
+  }
+}
+
+@media (max-width: 480px) {
+  .celebrant-name-tag {
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    max-width: 150px;
+  }
+  .celebrant-name-tag--top-right {
+    top: 5%;
+    right: -5%;
+  }
+  .celebrant-name-tag--bottom-left {
+    bottom: 5%;
+    left: -5%;
+  }
+}
+

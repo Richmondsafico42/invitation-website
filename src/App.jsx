@@ -8,7 +8,9 @@ import ScrollReveal from './components/ScrollReveal'
 import CelebrantShowcase from './components/CelebrantShowcase'
 import VenueMap from './components/VenueMap'
 import { eventConfig } from './eventConfig'
+import togetherPhoto from './assets/together.svg'
 import './App.css'
+
 
 function FloralDivider() {
   return (
@@ -103,7 +105,7 @@ function App() {
           style={{ '--d': '0.75s' }}
         >
           <img
-            src="/celebrants/together.svg"
+            src={togetherPhoto}
             alt={`${celebrants.join(' and ')} together`}
             className="hero-couple-img"
           />
