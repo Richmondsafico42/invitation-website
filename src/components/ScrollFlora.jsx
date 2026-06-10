@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import FloralSpray from './FloralSpray'
 
 export default function ScrollFlora() {
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState({ enter: 0, page: 0 })
   const ticking = useRef(false)
 
   useEffect(() => {

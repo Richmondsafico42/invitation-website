@@ -7,8 +7,11 @@
     "node": ">=20.19.0"
   },
   "scripts": {
+    "predev": "node scripts/prepare-dev.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/prepare-dev.mjs",
     "build": "vite build",
+    "postbuild": "node scripts/publish-root.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
