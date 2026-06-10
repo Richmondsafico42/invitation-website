@@ -9,8 +9,8 @@ function easeInCubic(t) {
 }
 
 function getSlideState(progress) {
-  const enterEnd = 0.38
-  const holdEnd = 0.58
+  const enterEnd = 0.33
+  const holdEnd = 0.65
 
   if (progress < enterEnd) {
     const t = easeOutCubic(progress / enterEnd)
@@ -38,8 +38,11 @@ function useScrollProgress(ref) {
         ticking = false
         return
       }
-      const scrolled = -rect.top
-      const pct = scrolled / stickyRange
+      // Start tracking earlier when the section enters the viewport
+      const startOffset = windowH * 0.7
+      const scrolled = startOffset - rect.top
+      const totalRange = stickyRange + startOffset
+      const pct = scrolled / totalRange
       setProgress(Math.min(Math.max(pct, 0), 1))
       ticking = false
     }
@@ -119,7 +122,11 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
   if (celebrants.length < 2) return null
 
   const headerOpacity = Math.min(progress * 3, 1) * (1 - Math.max(0, (progress - 0.7) * 3))
-  const headerY = (1 - Math.min(progress * 2.5, 1)) * 30
+  const headerY = (1 - Math.min(progress * 3, 1)) * 30
+
+  // Disable blur filter on mobile to save performance
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const headerBlur = isMobile ? 0 : (1 - headerOpacity) * 4
 
   return (
     <section
@@ -134,7 +141,7 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
           style={{
             opacity: headerOpacity,
             transform: `translateY(${headerY}px)`,
-            filter: `blur(${(1 - headerOpacity) * 4}px)`,
+            filter: headerBlur > 0 ? `blur(${headerBlur}px)` : 'none',
           }}
         >
           Our Celebrants

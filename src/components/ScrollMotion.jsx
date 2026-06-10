@@ -5,16 +5,11 @@ export default function ScrollMotion() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    let ticking = false
+    let centers = []
 
-    function update() {
+    function recalculateCenters() {
       const scrollY = window.scrollY
-      const viewportH = window.innerHeight
-      const docH = document.documentElement.scrollHeight - viewportH
-      const progress = docH > 0 ? scrollY / docH : 0
-
-      // Map each section to a target color theme:
-      // 0 = Pink (Blush/Rose), 1 = Periwinkle Blue
+      const newCenters = []
       const elements = [
         { selector: '.hero', targetColor: 0 },
         { selector: '.celebrant-showcase', targetColor: 1 },
@@ -23,26 +18,29 @@ export default function ScrollMotion() {
         { selector: '.rsvp', targetColor: 0 },
         { selector: '.footer', targetColor: 0 }
       ]
-
-      const viewportCenter = scrollY + viewportH / 2
-
-      // Find the vertical center of each section on the page
-      const centers = []
       for (const elInfo of elements) {
         const el = document.querySelector(elInfo.selector)
         if (el) {
           const rect = el.getBoundingClientRect()
           const center = scrollY + rect.top + rect.height / 2
-          centers.push({ y: center, color: elInfo.targetColor })
+          newCenters.push({ y: center, color: elInfo.targetColor })
         }
       }
+      newCenters.sort((a, b) => a.y - b.y)
+      centers = newCenters
+    }
+
+    function update() {
+      const scrollY = window.scrollY
+      const viewportH = window.innerHeight
+      const docH = document.documentElement.scrollHeight - viewportH
+      const progress = docH > 0 ? scrollY / docH : 0
+
+      const viewportCenter = scrollY + viewportH / 2
 
       let blend = 0 // Default to Pink (0)
 
       if (centers.length > 0) {
-        // Sort centers by page vertical coordinate
-        centers.sort((a, b) => a.y - b.y)
-
         if (viewportCenter <= centers[0].y) {
           blend = centers[0].color
         } else if (viewportCenter >= centers[centers.length - 1].y) {
@@ -82,13 +80,27 @@ export default function ScrollMotion() {
       requestAnimationFrame(update)
     }
 
+    function onResize() {
+      recalculateCenters()
+      update()
+    }
+
+    recalculateCenters()
     update()
+
+    const t1 = setTimeout(recalculateCenters, 150)
+    const t2 = setTimeout(recalculateCenters, 600)
+    const t3 = setTimeout(recalculateCenters, 1500)
+
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    window.addEventListener('resize', onResize)
 
     return () => {
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', onResize)
+      clearTimeout(t1)
+      clearTimeout(t2)
+      clearTimeout(t3)
       document.documentElement.style.removeProperty('--scroll-y')
       document.documentElement.style.removeProperty('--scroll-progress')
       document.documentElement.style.removeProperty('--pink-shift')

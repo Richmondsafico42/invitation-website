@@ -56,7 +56,6 @@ body {
     linear-gradient(135deg, #f5f3f8, #ede8f6 45%, #eaecf6);
   background-size: 100% 100%, 160% 160%, 170% 170%, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
   animation: bgshift 24s ease-in-out infinite;
-  transition: background 0.35s ease;
 }
 
 @keyframes bgshift {
@@ -72,5 +71,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   body {
     animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --card: rgba(240, 236, 248, 0.94);
   }
 }

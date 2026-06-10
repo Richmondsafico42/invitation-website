@@ -1162,13 +1162,13 @@ main {
 
 .celebrant-name-tag--top-right {
   top: 15%;
-  right: -5%;
+  right: -16%;
   text-align: left;
 }
 
 .celebrant-name-tag--bottom-left {
   bottom: 15%;
-  left: -5%;
+  left: -16%;
   text-align: left;
 }
 
@@ -1204,14 +1204,34 @@ main {
     padding: 0.85rem 1.2rem;
     border-radius: 16px;
     max-width: 180px;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.94);
   }
   .celebrant-name-tag--top-right {
     top: 10%;
-    right: -8%;
+    right: -20%;
   }
   .celebrant-name-tag--bottom-left {
     bottom: 10%;
-    left: -8%;
+    left: -20%;
+  }
+
+  /* Disable expensive scroll-driven parallax on mobile */
+  .hero-parallax,
+  main,
+  .details-invitation,
+  .venue-map {
+    transform: none !important;
+  }
+
+  /* Disable backdrop blurs to prevent render lag */
+  .hero,
+  .details-invitation,
+  .rsvp,
+  .celebrant-center-names {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 
@@ -1223,11 +1243,11 @@ main {
   }
   .celebrant-name-tag--top-right {
     top: 8%;
-    right: -10%;
+    right: -24%;
   }
   .celebrant-name-tag--bottom-left {
     bottom: 8%;
-    left: -10%;
+    left: -24%;
   }
 }
 
@@ -1286,7 +1306,7 @@ main {
 .scattered-design {
   position: absolute;
   pointer-events: none;
-  opacity: 0.25;
+  opacity: 0.45;
   filter: drop-shadow(0 6px 12px rgba(123, 94, 167, 0.08));
   will-change: transform;
   transform: translate3d(
@@ -1298,7 +1318,7 @@ main {
 
 @media (max-width: 768px) {
   .scattered-design {
-    opacity: 0.18;
+    opacity: 0.35;
     transform: translate3d(
       calc(var(--scroll-y, 0px) * var(--speed-x, 0) * 0.5),
       calc(var(--scroll-y, 0px) * var(--speed-y, 0) * 0.5),
