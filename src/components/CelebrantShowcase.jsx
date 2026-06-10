@@ -9,8 +9,8 @@ function easeInCubic(t) {
 }
 
 function getSlideState(progress) {
-  const enterEnd = 0.33
-  const holdEnd = 0.65
+  const enterEnd = 0.45
+  const holdEnd = 0.75
 
   if (progress < enterEnd) {
     const t = easeOutCubic(progress / enterEnd)
@@ -20,7 +20,7 @@ function getSlideState(progress) {
     return { enter: 1, hold: 1, exit: 0, opacity: 1 }
   }
   const t = easeInCubic((progress - holdEnd) / (1 - holdEnd))
-  return { enter: 1, hold: 1 - t, exit: t, opacity: 1 - t * 0.85 }
+  return { enter: 1, hold: 1 - t, exit: t, opacity: Math.max(0, 1 - t) }
 }
 
 function useScrollProgress(ref) {
@@ -107,7 +107,6 @@ function CelebrantPhoto({ person, side, progress }) {
         />
         <div className={`celebrant-name-tag ${nameTagClass}`}>
           <span className="celebrant-tag-name">{person.fullName || person.name}</span>
-          <span className="celebrant-tag-role">{person.tagline}</span>
         </div>
       </div>
     </figure>
@@ -121,8 +120,8 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
 
   if (celebrants.length < 2) return null
 
-  const headerOpacity = Math.min(progress * 3, 1) * (1 - Math.max(0, (progress - 0.7) * 3))
-  const headerY = (1 - Math.min(progress * 3, 1)) * 30
+  const headerOpacity = Math.min(progress * 2.2, 1) * (1 - Math.max(0, (progress - 0.75) * 4))
+  const headerY = (1 - Math.min(progress * 2.2, 1)) * 30
 
   // Disable blur filter on mobile to save performance
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768

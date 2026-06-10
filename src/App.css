@@ -844,7 +844,7 @@ main {
 .celebrant-showcase {
   position: relative;
   z-index: 2;
-  height: 260vh;
+  height: 180vh;
   width: 100vw;
   margin: 0 0 2rem calc(50% - 50vw);
   overflow: visible;
@@ -852,7 +852,7 @@ main {
 
 @media (max-width: 560px) {
   .celebrant-showcase {
-    height: 280vh;
+    height: 180vh;
   }
 }
 
@@ -1248,6 +1248,24 @@ main {
   .celebrant-name-tag--bottom-left {
     bottom: 8%;
     left: -24%;
+  }
+
+  /* Make countdown fit in one line on mobile */
+  .countdown {
+    gap: 0.4rem !important;
+    flex-wrap: nowrap !important;
+  }
+  .countdown-unit {
+    min-width: 66px !important;
+    padding: 0.65rem 0.35rem !important;
+    border-radius: 12px !important;
+  }
+  .countdown-value {
+    font-size: 1.45rem !important;
+  }
+  .countdown-label {
+    font-size: 0.58rem !important;
+    letter-spacing: 0.12em !important;
   }
 }
 
