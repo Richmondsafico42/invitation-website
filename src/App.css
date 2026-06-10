@@ -854,6 +854,9 @@ main {
   position: sticky;
   top: 0;
   min-height: 100vh;
+  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1198,11 +1201,11 @@ main {
   }
   .celebrant-name-tag--top-right {
     top: 10%;
-    right: -8%;
+    right: -15%;
   }
   .celebrant-name-tag--bottom-left {
     bottom: 10%;
-    left: -8%;
+    left: -15%;
   }
 }
 
@@ -1213,12 +1216,12 @@ main {
     max-width: 150px;
   }
   .celebrant-name-tag--top-right {
-    top: 5%;
-    right: -5%;
+    top: 8%;
+    right: -24%;
   }
   .celebrant-name-tag--bottom-left {
-    bottom: 5%;
-    left: -5%;
+    bottom: 8%;
+    left: -24%;
   }
 }
 

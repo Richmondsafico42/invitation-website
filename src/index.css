@@ -24,6 +24,11 @@
 }
 
 html,
+body {
+  overflow-x: clip;
+}
+
+html,
 body,
 #root {
   margin: 0;
