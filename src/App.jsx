@@ -9,6 +9,8 @@ import CelebrantShowcase from './components/CelebrantShowcase'
 import VenueMap from './components/VenueMap'
 import { eventConfig } from './eventConfig'
 import togetherPhoto from './assets/together.svg'
+import topLeftDesign from './assets/left.svg'
+import topRightDesign from './assets/right.svg'
 import './App.css'
 
 
@@ -77,10 +79,16 @@ function App() {
   const initials = celebrants.map((n) => n.charAt(0)).join(' & ')
 
   return (
-    <div className="page">
-      <ScrollMotion />
-      <Petals />
-      <ScrollFlora />
+    <>
+      <div className="top-corner-designs" aria-hidden="true">
+        <img src={topLeftDesign} alt="" className="top-design top-design--left" />
+        <img src={topRightDesign} alt="" className="top-design top-design--right" />
+      </div>
+
+      <div className="page">
+        <ScrollMotion />
+        <Petals />
+        <ScrollFlora />
 
       <header className="hero hero-parallax">
         <FloralSpray className="spray spray-hero-l" />
@@ -217,6 +225,7 @@ function App() {
         </p>
       </ScrollReveal>
     </div>
+    </>
   )
 }
 
