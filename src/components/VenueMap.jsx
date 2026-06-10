@@ -1,5 +1,7 @@
-export default function VenueMap({ lat, lng, venue }) {
+export default function VenueMap({ lat, lng, venue, address }) {
   const src = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.005},${lat - 0.003},${lng + 0.005},${lat + 0.003}&layer=mapnik&marker=${lat},${lng}`
+  const directionsLabel = `${venue}, ${address}`
+  const mapsQuery = encodeURIComponent(`${lat},${lng} ${directionsLabel}`)
 
   return (
     <div className="venue-map">
@@ -11,11 +13,11 @@ export default function VenueMap({ lat, lng, venue }) {
       />
       <a
         className="venue-map-link"
-        href={`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`}
+        href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        Open in Google Maps
+        {directionsLabel}
       </a>
     </div>
   )

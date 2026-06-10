@@ -56,6 +56,7 @@ function App() {
     celebrants,
     celebrantProfiles,
     age,
+    weddingYears,
     title,
     subtitle,
     dateISO,
@@ -122,7 +123,7 @@ function App() {
       </header>
 
       <main>
-        <CelebrantShowcase celebrants={celebrantProfiles} age={age} />
+        <CelebrantShowcase celebrants={celebrantProfiles} age={age} weddingYears={weddingYears} />
 
         <section className="details" aria-labelledby="details-heading">
           <ScrollReveal className="details-invitation" mode="stagger">

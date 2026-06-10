@@ -11,9 +11,13 @@ export default function ScrollMotion() {
       const scrollY = window.scrollY
       const docH = document.documentElement.scrollHeight - window.innerHeight
       const progress = docH > 0 ? scrollY / docH : 0
+      const pinkShift = Math.min(progress / 0.42, 1)
+      const blueShift = progress <= 0.42 ? 0 : Math.min((progress - 0.42) / 0.58, 1)
 
       document.documentElement.style.setProperty('--scroll-y', `${scrollY}px`)
       document.documentElement.style.setProperty('--scroll-progress', `${progress}`)
+      document.documentElement.style.setProperty('--pink-shift', pinkShift.toFixed(3))
+      document.documentElement.style.setProperty('--blue-shift', blueShift.toFixed(3))
 
       ticking = false
     }
@@ -33,6 +37,8 @@ export default function ScrollMotion() {
       window.removeEventListener('resize', onScroll)
       document.documentElement.style.removeProperty('--scroll-y')
       document.documentElement.style.removeProperty('--scroll-progress')
+      document.documentElement.style.removeProperty('--pink-shift')
+      document.documentElement.style.removeProperty('--blue-shift')
     }
   }, [])
 

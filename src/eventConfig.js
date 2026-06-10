@@ -5,32 +5,32 @@ export const eventConfig = {
   age: 60,
   weddingYears: 32,
   title: "You're Cordially Invited",
-  subtitle: 'Celebrating 60 Years of Purpose & 32 Years of Promise',
+  subtitle: 'Celebrating a 60th Birthday & 32 Years of Wedding Anniversary',
   // ISO date string for the party (used for the countdown)
   dateISO: '2026-07-18T16:30:00',
   dateLabel: 'Saturday, July 18, 2026',
   timeLabel: '4:30 PM onwards',
-  venue: 'The Garden Terrace',
-  address: '123 Celebration Ave, Manila',
+  venue: 'CASA ESMERALDA',
+  address: 'Purok 5, Bacolor, 2001 Pampanga',
   dressCode: 'Ladies: Pink · Gentlemen: Blue',
-  note: 'Come celebrate six decades of life and thirty-two years of love with us!',
+  note: 'Join us as we celebrate a 60th birthday and 32 beautiful years of wedding anniversary.',
   // Map coordinates for venue (lat, lng)
-  mapLat: 14.5995,
-  mapLng: 120.9842,
-  mapZoom: 16,
+  mapLat: 14.991236140873456,
+  mapLng: 120.6429018329377,
+  mapZoom: 17,
   // Celebrant photos — individual images (no background, standing to the side)
   celebrantProfiles: [
     {
       name: 'Mel',
       fullName: 'Imelda Serrano',
-      tagline: '60 years of purpose',
-      photo: '/celebrants/maria.svg',
+      tagline: '60th birthday celebrant',
+      photo: '/celebrants/mel.svg',
     },
     {
       name: 'Vic',
       fullName: 'Victoriano Serrano',
-      tagline: '60 years of promise',
-      photo: '/celebrants/jose.svg',
+      tagline: '32nd anniversary celebrant',
+      photo: '/celebrants/vic.svg',
     },
   ],
 }

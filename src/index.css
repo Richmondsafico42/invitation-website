@@ -14,6 +14,8 @@
   --serif: 'Cormorant Garamond', Georgia, serif;
   --display: 'Playfair Display', Georgia, serif;
   --script: 'Great Vibes', cursive;
+  --pink-shift: 0;
+  --blue-shift: 0;
   color-scheme: light;
 }
 
@@ -33,23 +35,32 @@ body {
   font-family: var(--serif);
   font-size: 18px;
   color: var(--ink);
+  overflow-x: clip;
   background:
+    linear-gradient(
+      180deg,
+      rgba(250, 240, 245, calc(0.18 + var(--pink-shift) * 0.16)),
+      rgba(234, 238, 248, calc(0.32 + var(--blue-shift) * 0.22))
+    ),
+    radial-gradient(circle at 50% calc(12% + var(--scroll-progress, 0) * 34%), rgba(247, 193, 219, calc(var(--pink-shift) * 0.62)), transparent 48%),
+    radial-gradient(circle at 52% calc(88% - var(--scroll-progress, 0) * 34%), rgba(173, 188, 244, calc(var(--blue-shift) * 0.7)), transparent 50%),
     radial-gradient(circle at 12% 18%, rgba(200, 168, 224, 0.50), transparent 42%),
     radial-gradient(circle at 88% 12%, rgba(158, 170, 216, 0.38), transparent 40%),
     radial-gradient(circle at 78% 88%, rgba(176, 188, 216, 0.42), transparent 45%),
     radial-gradient(circle at 20% 92%, rgba(232, 180, 220, 0.40), transparent 45%),
     linear-gradient(135deg, #f5f3f8, #ede8f6 45%, #eaecf6);
-  background-size: 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
+  background-size: 100% 100%, 160% 160%, 170% 170%, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
   animation: bgshift 24s ease-in-out infinite;
+  transition: background 0.35s ease;
 }
 
 @keyframes bgshift {
   0%,
   100% {
-    background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%;
+    background-position: 50% 0%, 50% 0%, 52% 100%, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%;
   }
   50% {
-    background-position: 20% 30%, 80% 20%, 70% 80%, 30% 70%, 100% 50%;
+    background-position: 50% 100%, 44% 26%, 60% 74%, 20% 30%, 80% 20%, 70% 80%, 30% 70%, 100% 50%;
   }
 }
 
