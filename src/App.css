@@ -1,47 +1,299 @@
 .page {
-  max-width: 960px;
+  position: relative;
+  max-width: 940px;
   margin: 0 auto;
   padding: 0 1.25rem 3rem;
+  overflow: hidden;
+}
+
+/* ---------- Floral sprays ---------- */
+.spray {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+  filter: drop-shadow(0 6px 10px rgba(194, 99, 138, 0.12));
+}
+
+.spray-tl {
+  top: -30px;
+  left: -60px;
+  transform: rotate(-8deg);
+  animation: sway 8s ease-in-out infinite;
+}
+.spray-br {
+  bottom: -30px;
+  right: -60px;
+  transform: scaleX(-1) rotate(-8deg);
+  animation: sway 9s ease-in-out infinite reverse;
+}
+.spray-hero-l {
+  top: -20px;
+  left: -50px;
+  width: 180px;
+  height: 180px;
+  transform: rotate(6deg);
+  animation: sway 7s ease-in-out infinite;
+}
+.spray-hero-r {
+  top: -20px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  transform: scaleX(-1) rotate(6deg);
+  animation: sway 7.5s ease-in-out infinite reverse;
+}
+.spray-rsvp {
+  bottom: -40px;
+  left: -60px;
+  width: 170px;
+  height: 170px;
+  opacity: 0.75;
+  transform: scaleY(-1);
+  animation: sway 8.5s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    rotate: -3deg;
+  }
+  50% {
+    rotate: 3deg;
+  }
+}
+
+.floral-bloom {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bloomPulse 6s ease-in-out infinite;
+}
+.floral-leaf {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: leafWave 5s ease-in-out infinite;
+}
+
+@keyframes bloomPulse {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.06;
+  }
+}
+@keyframes leafWave {
+  0%,
+  100% {
+    rotate: -2deg;
+  }
+  50% {
+    rotate: 3deg;
+  }
+}
+
+/* ---------- Falling petals ---------- */
+.petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -6%;
+  border-radius: 100% 0 100% 0;
+  opacity: 0.85;
+  box-shadow: inset 0 -2px 4px rgba(194, 99, 138, 0.25);
+  animation-name: petalfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes petalfall {
+  0% {
+    transform: translate(0, -10vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(var(--drift), 110vh) rotate(var(--spin));
+    opacity: 0;
+  }
+}
+
+/* ---------- Cinematic staggered entrance ---------- */
+.cine {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  animation: cineIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes cineIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ---------- Scroll-triggered fade-in ---------- */
+.fade-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Scroll-driven side flora ---------- */
+.scroll-flora {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 3;
+}
+.scroll-flora-side {
+  position: absolute;
+  top: -20px;
+  width: 260px;
+  transition: transform 0.1s linear, opacity 0.1s linear;
+}
+.scroll-flora-left {
+  left: -40px;
+}
+.scroll-flora-right {
+  right: -40px;
+  transform: scaleX(-1);
+}
+.scroll-flora-extra {
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  width: 200px;
+  height: 200px;
+  opacity: 0.8;
+  animation: sway 9s ease-in-out infinite;
+}
+.scroll-flora-extra-low {
+  position: absolute;
+  top: 220px;
+  left: -20px;
+  width: 170px;
+  height: 170px;
+  opacity: 0.6;
+  animation: sway 7s ease-in-out infinite reverse;
 }
 
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  overflow: hidden;
+  z-index: 2;
   text-align: center;
-  padding: 4.5rem 1.5rem 3.5rem;
+  padding: 4rem 1.5rem 3rem;
   margin: 1.5rem 0 2.5rem;
-  border-radius: 28px;
-  background: linear-gradient(160deg, var(--bg-soft), rgba(124, 92, 255, 0.15));
+  border-radius: 26px;
+  background: var(--card);
   border: 1px solid var(--card-border);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 20px 50px rgba(194, 99, 138, 0.14);
 }
 
 .hero-eyebrow {
-  letter-spacing: 0.35em;
+  letter-spacing: 0.45em;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  color: var(--accent-2);
-  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  color: var(--rose-deep);
+  margin: 0 0 1rem;
+}
+
+.monogram {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 0.5rem;
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  color: var(--rose-deep);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.05em;
 }
 
 .hero-name {
-  font-size: clamp(2.8rem, 9vw, 5rem);
-  margin: 0;
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 10vw, 5.5rem);
   line-height: 1;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  margin: 0;
+  color: var(--rose-deep);
+  text-shadow: 0 3px 12px rgba(232, 154, 184, 0.4);
 }
 
 .hero-subtitle {
-  font-size: clamp(1.1rem, 3.5vw, 1.6rem);
-  margin: 0.5rem 0 2rem;
-  color: var(--text-muted);
+  font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  margin: 0.25rem 0 0;
+  color: var(--ink-soft);
+}
+
+.hero-age {
+  font-family: var(--display);
+  font-style: normal;
+  font-size: 1.4em;
+  color: var(--gold);
+  padding: 0 0.15em;
 }
 
 .hero-cta {
   margin-top: 2rem;
+}
+
+/* ---------- Divider ---------- */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.4rem auto;
+  max-width: 320px;
+}
+.divider-line {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.divider-flower {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  animation: spinSlow 14s linear infinite;
+}
+@keyframes spinSlow {
+  to {
+    rotate: 360deg;
+  }
 }
 
 /* ---------- Buttons ---------- */
@@ -49,249 +301,284 @@
   display: inline-block;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   font-weight: 600;
-  padding: 0.85rem 2rem;
+  padding: 0.8rem 2.6rem;
   border-radius: 999px;
   text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .btn-primary {
-  color: #2a0f33;
-  background: linear-gradient(90deg, var(--accent-2), var(--accent));
-  box-shadow: 0 10px 25px rgba(255, 95, 162, 0.35);
+  color: #fff;
+  background: linear-gradient(120deg, var(--rose), var(--rose-deep));
+  box-shadow: 0 10px 24px rgba(194, 99, 138, 0.4);
 }
-
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(194, 99, 138, 0.5);
+}
 .btn-secondary {
-  color: var(--text);
+  color: var(--rose-deep);
   background: transparent;
-  border: 1px solid var(--card-border);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
+  border: 1px solid var(--rose);
 }
 
 /* ---------- Countdown ---------- */
 .countdown {
   display: flex;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
   flex-wrap: wrap;
 }
-
 .countdown-unit {
-  min-width: 78px;
-  padding: 0.9rem 0.5rem;
+  min-width: 84px;
+  padding: 1rem 0.6rem;
   border-radius: 16px;
-  background: var(--card);
+  background: rgba(255, 255, 255, 0.6);
   border: 1px solid var(--card-border);
+  box-shadow: 0 8px 18px rgba(194, 99, 138, 0.12);
 }
-
 .countdown-value {
   display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent-2);
+  font-family: var(--display);
+  font-size: 2.1rem;
+  color: var(--rose-deep);
 }
-
 .countdown-label {
   display: block;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--ink-soft);
 }
-
 .countdown-live {
-  font-size: 1.3rem;
-  color: var(--accent-2);
+  font-family: var(--display);
+  font-size: 1.4rem;
+  color: var(--rose-deep);
 }
 
 /* ---------- Sections ---------- */
+main {
+  position: relative;
+  z-index: 2;
+}
 .section-title {
   text-align: center;
-  font-size: clamp(1.6rem, 5vw, 2.2rem);
-  margin: 0 0 1.5rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  margin: 0;
+  color: var(--rose-deep);
 }
-
 .details {
   margin-bottom: 3.5rem;
 }
-
 .detail-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.25rem;
 }
-
 .detail-card {
   text-align: center;
-  padding: 1.75rem 1.25rem;
+  padding: 2rem 1.25rem;
   border-radius: 20px;
   background: var(--card);
   border: 1px solid var(--card-border);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 12px 26px rgba(194, 99, 138, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
+.detail-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 34px rgba(194, 99, 138, 0.22);
+}
 .detail-icon {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
 }
-
 .detail-card h3 {
-  margin: 0.6rem 0 0.5rem;
-  color: var(--accent);
+  font-family: var(--display);
+  margin: 0.5rem 0 0.6rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
 }
-
 .detail-card p {
   margin: 0.2rem 0;
-  color: var(--text-muted);
+  font-size: 1.15rem;
+  color: var(--ink);
 }
-
 .details-note {
   text-align: center;
   margin-top: 1.75rem;
   font-style: italic;
-  color: var(--text-muted);
+  font-size: 1.3rem;
+  color: var(--ink-soft);
 }
 
 /* ---------- RSVP ---------- */
 .rsvp {
+  position: relative;
   max-width: 560px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   border-radius: 24px;
   background: var(--card);
   border: 1px solid var(--card-border);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 18px 40px rgba(194, 99, 138, 0.16);
+  overflow: hidden;
 }
-
 .rsvp-intro {
   text-align: center;
-  color: var(--text-muted);
-  margin-top: 0;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.5rem;
 }
-
 .rsvp-form .field {
   margin-bottom: 1.1rem;
   display: flex;
   flex-direction: column;
 }
-
 .field-row {
   display: flex;
   gap: 1rem;
 }
-
 .field-row .field {
   flex: 1;
 }
-
 .rsvp-form label {
   margin-bottom: 0.4rem;
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--rose-deep);
 }
-
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {
   width: 100%;
-  padding: 0.7rem 0.85rem;
+  padding: 0.7rem 0.9rem;
   border-radius: 12px;
   border: 1px solid var(--card-border);
-  background: rgba(0, 0, 0, 0.25);
-  color: var(--text);
-  font-size: 1rem;
-  font-family: inherit;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.05rem;
 }
-
 .rsvp-form input:focus,
 .rsvp-form select:focus,
 .rsvp-form textarea:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--rose);
   outline-offset: 1px;
 }
-
 .rsvp-form .btn-primary {
   width: 100%;
   margin-top: 0.5rem;
 }
-
 .error {
   margin-top: 0.35rem;
-  color: #ff9bb6;
-  font-size: 0.85rem;
+  color: var(--rose-deep);
+  font-style: italic;
+  font-size: 0.95rem;
 }
-
 .rsvp-success {
   text-align: center;
+  padding: 1rem 0;
 }
-
 .rsvp-success h3 {
-  color: var(--accent-2);
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: 2.4rem;
+  color: var(--rose-deep);
+  margin: 0 0 0.5rem;
+}
+.rsvp-success p {
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.25rem;
 }
 
 /* ---------- Footer ---------- */
 .footer {
+  position: relative;
+  z-index: 2;
   text-align: center;
   margin-top: 3rem;
-  color: var(--text-muted);
-  font-size: 0.95rem;
+}
+.footer-script {
+  font-family: var(--script);
+  font-size: 2.6rem;
+  color: var(--rose-deep);
+  margin: 0;
+}
+.footer-sub {
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 0.25rem 0 0;
 }
 
-/* ---------- Confetti ---------- */
-.confetti {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+/* ---------- Venue map ---------- */
+.map-section {
+  margin-bottom: 3.5rem;
 }
-
-.confetti-piece {
-  position: absolute;
-  top: -10%;
-  width: 10px;
-  height: 14px;
-  opacity: 0.85;
-  animation: fall linear infinite;
+.venue-map {
+  max-width: 640px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(194, 99, 138, 0.16);
+  border: 1px solid var(--card-border);
 }
-
-.confetti-piece.c0 { background: var(--accent); left: 5%; animation-duration: 6s; }
-.confetti-piece.c1 { background: var(--accent-2); left: 20%; animation-duration: 7.5s; }
-.confetti-piece.c2 { background: var(--accent-3); left: 35%; animation-duration: 5.5s; }
-.confetti-piece.c3 { background: #66e0c0; left: 55%; animation-duration: 8s; }
-.confetti-piece.c4 { background: var(--accent); left: 72%; animation-duration: 6.5s; }
-.confetti-piece.c5 { background: var(--accent-2); left: 88%; animation-duration: 7s; }
-
-.confetti-piece:nth-child(even) {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+.venue-map iframe {
+  width: 100%;
+  height: 340px;
+  border: none;
+  display: block;
 }
-
-@keyframes fall {
-  0% {
-    transform: translateY(-20px) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.9;
-  }
-  100% {
-    transform: translateY(420px) rotate(360deg);
-    opacity: 0;
-  }
+.venue-map-link {
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  background: var(--card);
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--rose-deep);
+  text-decoration: none;
+  transition: background 0.2s;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .confetti-piece {
-    animation: none;
-    display: none;
-  }
+.venue-map-link:hover {
+  background: rgba(232, 154, 184, 0.15);
 }
 
 @media (max-width: 480px) {
   .field-row {
     flex-direction: column;
     gap: 0;
+  }
+  .spray {
+    width: 150px;
+    height: 150px;
+  }
+  .scroll-flora-side {
+    width: 140px;
+  }
+  .scroll-flora-extra,
+  .scroll-flora-extra-low {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cine {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .petals,
+  .scroll-flora {
+    display: none;
   }
 }

@@ -1,15 +1,19 @@
 :root {
-  --bg: #1a1030;
-  --bg-soft: #241544;
-  --accent: #ff5fa2;
-  --accent-2: #ffd166;
-  --accent-3: #7c5cff;
-  --text: #f6f1ff;
-  --text-muted: #c9bce4;
-  --card: rgba(255, 255, 255, 0.06);
-  --card-border: rgba(255, 255, 255, 0.14);
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  color-scheme: dark;
+  --blush: #f7c0d4;
+  --rose: #e89ab8;
+  --rose-deep: #c2638a;
+  --gold: #d9b15a;
+  --gold-soft: #f2c75c;
+  --sage: #9bbf8a;
+  --cream: #fff8f3;
+  --ink: #5a3d4a;
+  --ink-soft: #8a6b77;
+  --card: rgba(255, 255, 255, 0.55);
+  --card-border: rgba(214, 150, 178, 0.35);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --display: 'Playfair Display', Georgia, serif;
+  --script: 'Great Vibes', cursive;
+  color-scheme: light;
 }
 
 * {
@@ -25,13 +29,31 @@ body,
 }
 
 body {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--ink);
   background:
-    radial-gradient(circle at 20% 10%, rgba(124, 92, 255, 0.35), transparent 45%),
-    radial-gradient(circle at 80% 0%, rgba(255, 95, 162, 0.3), transparent 40%),
-    var(--bg);
-  color: var(--text);
+    radial-gradient(circle at 12% 18%, rgba(247, 192, 212, 0.55), transparent 42%),
+    radial-gradient(circle at 88% 12%, rgba(217, 177, 90, 0.32), transparent 40%),
+    radial-gradient(circle at 78% 88%, rgba(155, 191, 138, 0.4), transparent 45%),
+    radial-gradient(circle at 20% 92%, rgba(232, 154, 184, 0.4), transparent 45%),
+    linear-gradient(135deg, #fff8f3, #ffeef4 45%, #f3f7ee);
+  background-size: 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
+  animation: bgshift 24s ease-in-out infinite;
 }
 
-a {
-  color: var(--accent);
+@keyframes bgshift {
+  0%,
+  100% {
+    background-position: 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%;
+  }
+  50% {
+    background-position: 20% 30%, 80% 20%, 70% 80%, 30% 70%, 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
 }
