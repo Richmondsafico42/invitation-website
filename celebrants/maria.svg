@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Maria">
+  <defs>
+    <linearGradient id="bgM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f7c0d4"/>
+      <stop offset="100%" stop-color="#e89ab8"/>
+    </linearGradient>
+    <linearGradient id="skinM" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5d5c8"/>
+      <stop offset="100%" stop-color="#e8b9a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bgM)"/>
+  <ellipse cx="200" cy="430" rx="130" ry="40" fill="rgba(194,99,138,0.2)"/>
+  <ellipse cx="200" cy="175" rx="72" ry="82" fill="url(#skinM)"/>
+  <path d="M128 175 C128 95 165 55 200 55 C235 55 272 95 272 175 C272 210 260 240 245 260 L245 310 C245 360 225 390 200 390 C175 390 155 360 155 310 L155 260 C140 240 128 210 128 175 Z" fill="url(#skinM)"/>
+  <path d="M145 120 C155 80 175 62 200 62 C225 62 245 80 255 120 C240 108 220 100 200 100 C180 100 160 108 145 120 Z" fill="#5a3d4a"/>
+  <text x="200" y="470" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#5a3d4a" font-style="italic">Maria</text>
+</svg>

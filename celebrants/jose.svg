@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Jose">
+  <defs>
+    <linearGradient id="bgJ" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f2c75c"/>
+      <stop offset="100%" stop-color="#d9b15a"/>
+    </linearGradient>
+    <linearGradient id="skinJ" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8c4a8"/>
+      <stop offset="100%" stop-color="#d4a484"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bgJ)"/>
+  <ellipse cx="200" cy="430" rx="130" ry="40" fill="rgba(90,61,74,0.15)"/>
+  <ellipse cx="200" cy="175" rx="74" ry="84" fill="url(#skinJ)"/>
+  <path d="M126 178 C126 92 162 50 200 50 C238 50 274 92 274 178 C274 215 262 248 246 268 L246 318 C246 368 226 398 200 398 C174 398 154 368 154 318 L154 268 C138 248 126 215 126 178 Z" fill="url(#skinJ)"/>
+  <path d="M142 118 C152 72 175 52 200 52 C225 52 248 72 258 118 C242 104 222 96 200 96 C178 96 158 104 142 118 Z" fill="#3d2a32"/>
+  <text x="200" y="470" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#5a3d4a" font-style="italic">Jose</text>
+</svg>
