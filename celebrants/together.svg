@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" role="img" aria-label="Maria and Jose together">
+  <defs>
+    <!-- Skin tones -->
+    <linearGradient id="skinF" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5d5c8"/>
+      <stop offset="100%" stop-color="#e8b9a8"/>
+    </linearGradient>
+    <linearGradient id="skinM" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8c4a8"/>
+      <stop offset="100%" stop-color="#d4a484"/>
+    </linearGradient>
+    <!-- Pink dress gradient -->
+    <linearGradient id="pinkDress" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f7b8d4"/>
+      <stop offset="50%" stop-color="#e88ab8"/>
+      <stop offset="100%" stop-color="#d4679c"/>
+    </linearGradient>
+    <!-- Blue barong/suit gradient -->
+    <linearGradient id="blueBarong" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b9fd4"/>
+      <stop offset="50%" stop-color="#6b82c4"/>
+      <stop offset="100%" stop-color="#4a65a8"/>
+    </linearGradient>
+    <!-- Lilac accent for flowers -->
+    <linearGradient id="lilacFlower" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c8b4e8"/>
+      <stop offset="100%" stop-color="#a890d4"/>
+    </linearGradient>
+    <!-- Pink dress detail -->
+    <linearGradient id="pinkSkirt" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0a0c8"/>
+      <stop offset="100%" stop-color="#d4679c"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===== MARIA (left) — pink dress ===== -->
+  <!-- Body / full gown -->
+  <ellipse cx="178" cy="480" rx="95" ry="18" fill="rgba(200,80,140,0.10)"/>
+  <!-- Gown skirt (flowing A-line) -->
+  <path d="M138 290 C128 340 110 390 100 470 L256 470 C246 390 228 340 218 290 Z" fill="url(#pinkSkirt)" opacity="0.95"/>
+  <!-- Gown skirt overlay shine -->
+  <path d="M155 290 C148 340 138 390 132 460 L200 460 C194 390 186 340 178 290 Z" fill="rgba(255,220,235,0.25)"/>
+  <!-- Gown bodice -->
+  <path d="M138 200 C130 240 130 270 138 290 L218 290 C226 270 226 240 218 200 Z" fill="url(#pinkDress)"/>
+  <!-- Bodice sweetheart neckline detail -->
+  <path d="M148 200 C148 192 156 186 164 186 C172 186 176 190 178 195 C180 190 184 186 192 186 C200 186 208 192 208 200 Z" fill="url(#pinkDress)"/>
+  <!-- Neck -->
+  <rect x="168" y="158" width="20" height="30" rx="10" fill="url(#skinF)"/>
+  <!-- Head -->
+  <ellipse cx="178" cy="140" rx="42" ry="46" fill="url(#skinF)"/>
+  <!-- Hair — elegant updo with curls -->
+  <ellipse cx="178" cy="106" rx="42" ry="22" fill="#4a2e3a"/>
+  <ellipse cx="178" cy="98" rx="35" ry="16" fill="#5a3545"/>
+  <!-- Updo bun -->
+  <ellipse cx="178" cy="90" rx="20" ry="15" fill="#4a2e3a"/>
+  <!-- Hair loose strands on sides -->
+  <path d="M140 120 C132 130 130 150 134 165" stroke="#4a2e3a" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M216 120 C224 130 226 150 222 165" stroke="#4a2e3a" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Flower in hair -->
+  <circle cx="195" cy="95" r="9" fill="#f7b8d4"/>
+  <circle cx="195" cy="95" r="5" fill="#f2c75c"/>
+  <!-- Eyes -->
+  <ellipse cx="165" cy="142" rx="5" ry="4" fill="#3d2532"/>
+  <ellipse cx="191" cy="142" rx="5" ry="4" fill="#3d2532"/>
+  <ellipse cx="165" cy="140" rx="2" ry="2" fill="white" opacity="0.7"/>
+  <ellipse cx="191" cy="140" rx="2" ry="2" fill="white" opacity="0.7"/>
+  <!-- Eyebrows -->
+  <path d="M158 134 C162 131 169 131 173 133" stroke="#4a2e3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M183 133 C187 131 194 131 198 134" stroke="#4a2e3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Nose -->
+  <path d="M175 150 C175 155 178 158 181 155" stroke="#c89080" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Smile -->
+  <path d="M164 162 C170 168 186 168 192 162" stroke="#c27080" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M164 162 C170 166 186 166 192 162" fill="rgba(220,100,140,0.25)"/>
+  <!-- Earrings -->
+  <circle cx="137" cy="150" r="5" fill="#c8b4e8"/>
+  <circle cx="219" cy="150" r="5" fill="#c8b4e8"/>
+  <!-- Maria's bouquet in left arm -->
+  <path d="M100 340 C90 320 85 300 88 285" stroke="#7aaf6a" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <circle cx="88" cy="278" r="10" fill="#f7b8d4"/>
+  <circle cx="78" cy="268" r="9" fill="#c8b4e8"/>
+  <circle cx="98" cy="265" r="9" fill="#f7c0d4"/>
+  <circle cx="88" cy="258" r="7" fill="#e89ab8"/>
+  <circle cx="78" cy="278" r="5" fill="#a890d4"/>
+  <!-- Maria arm left -->
+  <path d="M138 220 C120 250 105 290 100 330" stroke="#e8b9a8" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <!-- Maria arm right (reaching to Jose) -->
+  <path d="M218 220 C240 230 260 250 272 270" stroke="#e8b9a8" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <!-- Maria's hand on Jose's arm -->
+  <ellipse cx="274" cy="275" rx="14" ry="10" fill="url(#skinF)"/>
+
+  <!-- ===== JOSE (right) — blue barong ===== -->
+  <!-- Body shadow -->
+  <ellipse cx="418" cy="480" rx="90" ry="18" fill="rgba(70,100,180,0.10)"/>
+  <!-- Suit/barong trousers -->
+  <path d="M368 300 C360 360 358 420 355 470 L480 470 C477 420 475 360 468 300 Z" fill="#2a3f7a" opacity="0.9"/>
+  <!-- Barong shirt (embroidered Filipino formal) -->
+  <path d="M358 200 C348 240 348 270 358 300 L478 300 C488 270 488 240 478 200 Z" fill="url(#blueBarong)"/>
+  <!-- Barong collar -->
+  <path d="M400 200 L418 250 L436 200" fill="white" opacity="0.9"/>
+  <path d="M400 200 C406 210 412 220 418 250 C424 220 430 210 436 200" fill="rgba(255,255,255,0.3)"/>
+  <!-- Barong embroidery lines -->
+  <path d="M405 210 C405 260 407 280 410 295" stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="none"/>
+  <path d="M431 210 C431 260 429 280 426 295" stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="none"/>
+  <!-- Barong buttons -->
+  <circle cx="418" cy="215" r="3" fill="white" opacity="0.8"/>
+  <circle cx="418" cy="230" r="3" fill="white" opacity="0.8"/>
+  <circle cx="418" cy="245" r="3" fill="white" opacity="0.8"/>
+  <!-- Neck -->
+  <rect x="408" y="158" width="20" height="30" rx="10" fill="url(#skinM)"/>
+  <!-- Head -->
+  <ellipse cx="418" cy="138" rx="44" ry="46" fill="url(#skinM)"/>
+  <!-- Hair -->
+  <ellipse cx="418" cy="100" rx="44" ry="20" fill="#2e1a22"/>
+  <ellipse cx="418" cy="96" rx="40" ry="16" fill="#3a2230"/>
+  <!-- Short side-parted hair -->
+  <path d="M376 110 C374 115 373 122 374 130" stroke="#2e1a22" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M460 110 C462 115 463 122 462 130" stroke="#2e1a22" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Eyes -->
+  <ellipse cx="403" cy="140" rx="5.5" ry="4.5" fill="#2e1a22"/>
+  <ellipse cx="433" cy="140" rx="5.5" ry="4.5" fill="#2e1a22"/>
+  <ellipse cx="403" cy="138" rx="2" ry="2" fill="white" opacity="0.7"/>
+  <ellipse cx="433" cy="138" rx="2" ry="2" fill="white" opacity="0.7"/>
+  <!-- Eyebrows -->
+  <path d="M395 131 C400 128 408 128 413 130" stroke="#2e1a22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M423 130 C428 128 436 128 441 131" stroke="#2e1a22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Nose -->
+  <path d="M414 149 C414 155 418 158 422 155" stroke="#b08070" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Smile -->
+  <path d="M402 162 C410 170 426 170 434 162" stroke="#b07060" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Jose arm right -->
+  <path d="M478 220 C496 250 508 280 512 320" stroke="#d4a484" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <!-- Jose arm left (around Maria's waist area) -->
+  <path d="M358 220 C338 240 318 260 308 285" stroke="#d4a484" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <!-- Jose hand on Maria shoulder -->
+  <ellipse cx="306" cy="290" rx="14" ry="10" fill="url(#skinM)"/>
+
+  <!-- ===== Connecting element — hearts and petals between them ===== -->
+  <text x="300" y="270" text-anchor="middle" font-size="28" fill="#e88ab8" opacity="0.9">♡</text>
+  <text x="280" y="240" text-anchor="middle" font-size="14" fill="#c8b4e8" opacity="0.7">✿</text>
+  <text x="320" y="242" text-anchor="middle" font-size="14" fill="#f7b8d4" opacity="0.7">✿</text>
+
+  <!-- ===== Decorative florals — bottom ===== -->
+  <!-- Left bouquet flowers at feet -->
+  <circle cx="130" cy="465" r="12" fill="#f7b8d4" opacity="0.8"/>
+  <circle cx="148" cy="458" r="10" fill="#c8b4e8" opacity="0.8"/>
+  <circle cx="115" cy="455" r="9" fill="#e88ab8" opacity="0.8"/>
+  <circle cx="140" cy="448" r="8" fill="#f7c0d4" opacity="0.7"/>
+  <circle cx="125" cy="475" r="7" fill="#a890d4" opacity="0.6"/>
+  <path d="M120 470 C110 455 108 440 112 430" stroke="#8aaf7a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M138 462 C130 448 128 432 132 422" stroke="#8aaf7a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Right bouquet flowers at feet -->
+  <circle cx="460" cy="462" r="12" fill="#c8b4e8" opacity="0.8"/>
+  <circle cx="475" cy="455" r="10" fill="#f7b8d4" opacity="0.8"/>
+  <circle cx="448" cy="455" r="9" fill="#a890d4" opacity="0.8"/>
+  <circle cx="465" cy="445" r="8" fill="#8b9fd4" opacity="0.7"/>
+  <circle cx="480" cy="470" r="7" fill="#e88ab8" opacity="0.6"/>
+  <path d="M465 462 C472 448 474 432 470 422" stroke="#8aaf7a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M450 456 C455 440 455 425 450 415" stroke="#8aaf7a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Top floral accents -->
+  <circle cx="80" cy="80" r="15" fill="#f7b8d4" opacity="0.7"/>
+  <circle cx="65" cy="65" r="11" fill="#c8b4e8" opacity="0.6"/>
+  <circle cx="95" cy="62" r="9" fill="#e88ab8" opacity="0.5"/>
+  <path d="M75 88 C62 72 60 55 65 45" stroke="#8aaf7a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <circle cx="520" cy="75" r="15" fill="#c8b4e8" opacity="0.7"/>
+  <circle cx="535" cy="60" r="11" fill="#f7b8d4" opacity="0.6"/>
+  <circle cx="510" cy="58" r="9" fill="#a890d4" opacity="0.5"/>
+  <path d="M525 82 C538 66 540 50 535 40" stroke="#8aaf7a" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Tiny scattered petals -->
+  <ellipse cx="50" cy="200" rx="7" ry="5" fill="#f7b8d4" opacity="0.5" transform="rotate(30 50 200)"/>
+  <ellipse cx="555" cy="180" rx="7" ry="5" fill="#c8b4e8" opacity="0.5" transform="rotate(-40 555 180)"/>
+  <ellipse cx="300" cy="50" rx="6" ry="4" fill="#e88ab8" opacity="0.4" transform="rotate(15 300 50)"/>
+  <ellipse cx="60" cy="350" rx="6" ry="4" fill="#a890d4" opacity="0.4" transform="rotate(-20 60 350)"/>
+  <ellipse cx="545" cy="340" rx="6" ry="4" fill="#f7c0d4" opacity="0.4" transform="rotate(25 545 340)"/>
+</svg>
