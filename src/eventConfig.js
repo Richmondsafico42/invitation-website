@@ -10,7 +10,7 @@ export const eventConfig = {
   timeLabel: '6:00 PM – 11:00 PM',
   venue: 'The Garden Terrace',
   address: '123 Celebration Ave, Manila',
-  dressCode: 'Semi-Formal / Elegant',
+  dressCode: 'Ladies: Pink · Gentlemen: Blue',
   note: 'Come celebrate six decades of love, life, and laughter with us!',
   // Map coordinates for venue (lat, lng)
   mapLat: 14.5995,

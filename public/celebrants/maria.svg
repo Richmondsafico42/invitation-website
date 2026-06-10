@@ -1,18 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Maria">
   <defs>
     <linearGradient id="bgM" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f7c0d4"/>
-      <stop offset="100%" stop-color="#e89ab8"/>
+      <stop offset="0%" stop-color="#f0d8ef"/>
+      <stop offset="100%" stop-color="#c8a8e0"/>
     </linearGradient>
     <linearGradient id="skinM" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#f5d5c8"/>
       <stop offset="100%" stop-color="#e8b9a8"/>
     </linearGradient>
+    <linearGradient id="dressM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f7b8d4"/>
+      <stop offset="100%" stop-color="#d4679c"/>
+    </linearGradient>
   </defs>
   <rect width="400" height="500" fill="url(#bgM)"/>
-  <ellipse cx="200" cy="430" rx="130" ry="40" fill="rgba(194,99,138,0.2)"/>
-  <ellipse cx="200" cy="175" rx="72" ry="82" fill="url(#skinM)"/>
-  <path d="M128 175 C128 95 165 55 200 55 C235 55 272 95 272 175 C272 210 260 240 245 260 L245 310 C245 360 225 390 200 390 C175 390 155 360 155 310 L155 260 C140 240 128 210 128 175 Z" fill="url(#skinM)"/>
-  <path d="M145 120 C155 80 175 62 200 62 C225 62 245 80 255 120 C240 108 220 100 200 100 C180 100 160 108 145 120 Z" fill="#5a3d4a"/>
-  <text x="200" y="470" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#5a3d4a" font-style="italic">Maria</text>
+  <ellipse cx="200" cy="430" rx="130" ry="40" fill="rgba(123,94,167,0.15)"/>
+  <!-- Dress/body -->
+  <path d="M130 220 C120 270 115 340 110 420 L290 420 C285 340 280 270 270 220 Z" fill="url(#dressM)"/>
+  <!-- Bodice -->
+  <path d="M150 180 C145 200 143 215 140 225 L260 225 C257 215 255 200 250 180 Z" fill="#e888b8"/>
+  <!-- Neck -->
+  <rect x="183" y="155" width="34" height="28" rx="14" fill="url(#skinM)"/>
+  <!-- Head -->
+  <ellipse cx="200" cy="135" rx="52" ry="56" fill="url(#skinM)"/>
+  <!-- Hair updo -->
+  <ellipse cx="200" cy="94" rx="52" ry="26" fill="#4a2e3a"/>
+  <ellipse cx="200" cy="86" rx="40" ry="18" fill="#5a3545"/>
+  <ellipse cx="200" cy="78" rx="22" ry="16" fill="#4a2e3a"/>
+  <!-- Hair side curls -->
+  <path d="M152 115 C142 128 140 148 145 165" stroke="#4a2e3a" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M248 115 C258 128 260 148 255 165" stroke="#4a2e3a" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Flower in hair -->
+  <circle cx="220" cy="83" r="11" fill="#f7b8d4"/>
+  <circle cx="220" cy="83" r="6" fill="#9eaad8"/>
+  <!-- Eyes -->
+  <ellipse cx="180" cy="138" rx="6" ry="5" fill="#3d2532"/>
+  <ellipse cx="220" cy="138" rx="6" ry="5" fill="#3d2532"/>
+  <ellipse cx="180" cy="136" rx="2.5" ry="2.5" fill="white" opacity="0.7"/>
+  <ellipse cx="220" cy="136" rx="2.5" ry="2.5" fill="white" opacity="0.7"/>
+  <!-- Eyebrows -->
+  <path d="M170 127 C177 123 188 123 195 126" stroke="#4a2e3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M205 126 C212 123 223 123 230 127" stroke="#4a2e3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Nose -->
+  <path d="M196 148 C196 155 200 158 204 155" stroke="#c89080" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <!-- Smile -->
+  <path d="M182 163 C190 170 210 170 218 163" stroke="#c27080" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- Earrings - lilac -->
+  <circle cx="150" cy="145" r="7" fill="#c8b4e8"/>
+  <circle cx="250" cy="145" r="7" fill="#c8b4e8"/>
+  <text x="200" y="472" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#4a4060" font-style="italic">Maria</text>
 </svg>

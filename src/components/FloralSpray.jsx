@@ -11,21 +11,21 @@ export default function FloralSpray({ className = '' }) {
       {/* stems */}
       <path
         d="M20 180 C 60 150, 70 110, 90 70 M40 175 C 70 150, 110 140, 150 120 M30 178 C 55 165, 75 165, 110 160"
-        stroke="#9bbf8a"
+        stroke="#9bafcf"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
       {/* leaves */}
-      <g className="floral-leaf" fill="#a9cf99">
+      <g className="floral-leaf" fill="#a8bcd8">
         <path d="M70 120 C 55 110, 55 90, 72 92 C 80 104, 82 116, 70 120 Z" />
         <path d="M120 140 C 110 126, 122 110, 136 118 C 134 132, 132 142, 120 140 Z" />
         <path d="M55 158 C 44 150, 48 134, 62 140 C 62 150, 64 158, 55 158 Z" />
       </g>
       {/* blossoms */}
       <g className="floral-bloom">
-        <Bloom cx={92} cy={62} scale={1.15} petal="#f6a8c4" center="#f5d271" />
-        <Bloom cx={150} cy={114} scale={0.85} petal="#f7c0d4" center="#f3cf6b" />
-        <Bloom cx={112} cy={150} scale={0.7} petal="#efb7cf" center="#f4d579" />
+        <Bloom cx={92} cy={62} scale={1.15} petal="#c8a8e0" center="#b8c4e8" />
+        <Bloom cx={150} cy={114} scale={0.85} petal="#e0b8d8" center="#a890d4" />
+        <Bloom cx={112} cy={150} scale={0.7} petal="#f0d8ef" center="#9eaad8" />
       </g>
     </svg>
   )

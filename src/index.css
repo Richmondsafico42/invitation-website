@@ -1,15 +1,16 @@
 :root {
-  --blush: #f7c0d4;
-  --rose: #e89ab8;
-  --rose-deep: #c2638a;
-  --gold: #d9b15a;
-  --gold-soft: #f2c75c;
-  --sage: #9bbf8a;
-  --cream: #fff8f3;
-  --ink: #5a3d4a;
-  --ink-soft: #8a6b77;
-  --card: rgba(255, 255, 255, 0.55);
-  --card-border: rgba(214, 150, 178, 0.35);
+  /* ─── Lilac · Misty Gray · Periwinkle Blue · Pink Floral palette ─── */
+  --blush: #f0d8ef;           /* soft lilac-pink (was pink blush) */
+  --rose: #c8a8e0;            /* medium lilac / wisteria */
+  --rose-deep: #7b5ea7;       /* deep periwinkle-purple (primary accent) */
+  --gold: #9eaad8;            /* periwinkle blue (replaces gold) */
+  --gold-soft: #b8c4e8;       /* light periwinkle */
+  --sage: #b0bcd8;            /* misty periwinkle-gray */
+  --cream: #f5f3f8;           /* misty gray-white */
+  --ink: #4a4060;             /* deep purple-gray text */
+  --ink-soft: #8a82a0;        /* muted mauve-gray text */
+  --card: rgba(240, 236, 248, 0.60);       /* lilac glass card */
+  --card-border: rgba(180, 160, 220, 0.35); /* lilac-periwinkle border */
   --serif: 'Cormorant Garamond', Georgia, serif;
   --display: 'Playfair Display', Georgia, serif;
   --script: 'Great Vibes', cursive;
@@ -33,11 +34,11 @@ body {
   font-size: 18px;
   color: var(--ink);
   background:
-    radial-gradient(circle at 12% 18%, rgba(247, 192, 212, 0.55), transparent 42%),
-    radial-gradient(circle at 88% 12%, rgba(217, 177, 90, 0.32), transparent 40%),
-    radial-gradient(circle at 78% 88%, rgba(155, 191, 138, 0.4), transparent 45%),
-    radial-gradient(circle at 20% 92%, rgba(232, 154, 184, 0.4), transparent 45%),
-    linear-gradient(135deg, #fff8f3, #ffeef4 45%, #f3f7ee);
+    radial-gradient(circle at 12% 18%, rgba(200, 168, 224, 0.50), transparent 42%),
+    radial-gradient(circle at 88% 12%, rgba(158, 170, 216, 0.38), transparent 40%),
+    radial-gradient(circle at 78% 88%, rgba(176, 188, 216, 0.42), transparent 45%),
+    radial-gradient(circle at 20% 92%, rgba(232, 180, 220, 0.40), transparent 45%),
+    linear-gradient(135deg, #f5f3f8, #ede8f6 45%, #eaecf6);
   background-size: 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
   animation: bgshift 24s ease-in-out infinite;
 }

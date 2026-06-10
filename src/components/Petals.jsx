@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const COLORS = ['#f6a8c4', '#f7c0d4', '#efb7cf', '#f5d271', '#f3cf6b', '#fbe3ec']
+const COLORS = ['#c8a8e0', '#b8c4e8', '#e0b8d8', '#a890d4', '#d4c0ec', '#9eaad8', '#f0d8ef']
 
 function buildPetals(count) {
   return Array.from({ length: count }).map((_, i) => ({

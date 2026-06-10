@@ -22,11 +22,11 @@ function FloralDivider() {
             cy="6.5"
             rx="2.6"
             ry="5"
-            fill="#e89ab8"
+            fill="#c8a8e0"
             transform={`rotate(${deg} 12 12)`}
           />
         ))}
-        <circle cx="12" cy="12" r="2.6" fill="#f2c75c" />
+        <circle cx="12" cy="12" r="2.6" fill="#9eaad8" />
       </svg>
       <span className="divider-line" />
     </div>
@@ -94,6 +94,19 @@ function App() {
         <p className="hero-subtitle cine" style={{ '--d': '0.65s' }}>
           Joint <span className="hero-age">{age}<sup>th</sup></span> Birthday Celebration
         </p>
+
+        {/* ── Combined celebrants photo ── */}
+        <div
+          className="hero-couple-photo cine"
+          style={{ '--d': '0.75s' }}
+        >
+          <img
+            src="/celebrants/together.svg"
+            alt="Maria and Jose together"
+            className="hero-couple-img"
+          />
+        </div>
+
         <FloralDivider />
         <div className="cine" style={{ '--d': '0.85s' }}>
           <Countdown dateISO={dateISO} />
