@@ -5,8 +5,15 @@ export default function ScrollMotion() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
+    const isMobile = window.innerWidth < 768
     let centers = []
-    let ticking = false
+
+    // Smoothed values for mobile lerp
+    let currentScrollY = 0
+    let currentProgress = 0
+    let currentPink = 1
+    let currentBlue = 0
+    let rafId = null
 
     function recalculateCenters() {
       const scrollY = window.scrollY
@@ -31,7 +38,7 @@ export default function ScrollMotion() {
       centers = newCenters
     }
 
-    function update() {
+    function calcTargets() {
       const scrollY = window.scrollY
       const viewportH = window.innerHeight
       const docH = document.documentElement.scrollHeight - viewportH
@@ -39,7 +46,7 @@ export default function ScrollMotion() {
 
       const viewportCenter = scrollY + viewportH / 2
 
-      let blend = 0 // Default to Pink (0)
+      let blend = 0
 
       if (centers.length > 0) {
         if (viewportCenter <= centers[0].y) {
@@ -47,14 +54,12 @@ export default function ScrollMotion() {
         } else if (viewportCenter >= centers[centers.length - 1].y) {
           blend = centers[centers.length - 1].color
         } else {
-          // Interpolate color blend factor between the two sections framing the viewport center
           for (let i = 0; i < centers.length - 1; i++) {
             const c1 = centers[i]
             const c2 = centers[i + 1]
             if (viewportCenter >= c1.y && viewportCenter <= c2.y) {
               const range = c2.y - c1.y
               const t = range > 0 ? (viewportCenter - c1.y) / range : 0
-              // Use smoothstep for a softer, more organic transition
               const smoothT = t * t * (3 - 2 * t)
               blend = c1.color + smoothT * (c2.color - c1.color)
               break
@@ -63,51 +68,105 @@ export default function ScrollMotion() {
         }
       }
 
-      // Convert blend (0 = Pink, 1 = Blue) to shift values
-      const pinkShift = 1 - blend
-      const blueShift = blend
-
-      document.documentElement.style.setProperty('--scroll-y', `${scrollY}px`)
-      document.documentElement.style.setProperty('--scroll-progress', `${progress}`)
-      document.documentElement.style.setProperty('--pink-shift', pinkShift.toFixed(3))
-      document.documentElement.style.setProperty('--blue-shift', blueShift.toFixed(3))
-
-      ticking = false
+      return { scrollY, progress, pinkShift: 1 - blend, blueShift: blend }
     }
 
-    function onScroll() {
-      if (ticking) return
-      ticking = true
-      requestAnimationFrame(update)
+    function applyValues(scrollY, progress, pinkShift, blueShift) {
+      const root = document.documentElement.style
+      root.setProperty('--scroll-y', `${scrollY}px`)
+      root.setProperty('--scroll-progress', `${progress}`)
+      root.setProperty('--pink-shift', pinkShift.toFixed(3))
+      root.setProperty('--blue-shift', blueShift.toFixed(3))
     }
 
-    function onResize() {
+    if (isMobile) {
+      // Smooth lerp loop on mobile — prevents jitter
+      const lerpFactor = 0.1
+
+      function animate() {
+        const targets = calcTargets()
+        currentScrollY += (targets.scrollY - currentScrollY) * lerpFactor
+        currentProgress += (targets.progress - currentProgress) * lerpFactor
+        currentPink += (targets.pinkShift - currentPink) * lerpFactor
+        currentBlue += (targets.blueShift - currentBlue) * lerpFactor
+
+        applyValues(currentScrollY, currentProgress, currentPink, currentBlue)
+        rafId = requestAnimationFrame(animate)
+      }
+
+      recalculateCenters()
+      const targets = calcTargets()
+      currentScrollY = targets.scrollY
+      currentProgress = targets.progress
+      currentPink = targets.pinkShift
+      currentBlue = targets.blueShift
+      applyValues(currentScrollY, currentProgress, currentPink, currentBlue)
+
+      rafId = requestAnimationFrame(animate)
+
+      const t1 = setTimeout(recalculateCenters, 150)
+      const t2 = setTimeout(recalculateCenters, 600)
+      const t3 = setTimeout(recalculateCenters, 1500)
+
+      const onResize = () => recalculateCenters()
+      window.addEventListener('resize', onResize)
+
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId)
+        window.removeEventListener('resize', onResize)
+        clearTimeout(t1)
+        clearTimeout(t2)
+        clearTimeout(t3)
+        document.documentElement.style.removeProperty('--scroll-y')
+        document.documentElement.style.removeProperty('--scroll-progress')
+        document.documentElement.style.removeProperty('--pink-shift')
+        document.documentElement.style.removeProperty('--blue-shift')
+      }
+    } else {
+      // Desktop: direct rAF-throttled
+      let ticking = false
+
+      function update() {
+        const targets = calcTargets()
+        applyValues(targets.scrollY, targets.progress, targets.pinkShift, targets.blueShift)
+        ticking = false
+      }
+
+      function onScroll() {
+        if (ticking) return
+        ticking = true
+        requestAnimationFrame(update)
+      }
+
+      function onResize() {
+        recalculateCenters()
+        update()
+      }
+
       recalculateCenters()
       update()
-    }
 
-    recalculateCenters()
-    update()
+      const t1 = setTimeout(recalculateCenters, 150)
+      const t2 = setTimeout(recalculateCenters, 600)
+      const t3 = setTimeout(recalculateCenters, 1500)
 
-    const t1 = setTimeout(recalculateCenters, 150)
-    const t2 = setTimeout(recalculateCenters, 600)
-    const t3 = setTimeout(recalculateCenters, 1500)
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onResize)
 
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onResize)
-
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onResize)
-      clearTimeout(t1)
-      clearTimeout(t2)
-      clearTimeout(t3)
-      document.documentElement.style.removeProperty('--scroll-y')
-      document.documentElement.style.removeProperty('--scroll-progress')
-      document.documentElement.style.removeProperty('--pink-shift')
-      document.documentElement.style.removeProperty('--blue-shift')
+      return () => {
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onResize)
+        clearTimeout(t1)
+        clearTimeout(t2)
+        clearTimeout(t3)
+        document.documentElement.style.removeProperty('--scroll-y')
+        document.documentElement.style.removeProperty('--scroll-progress')
+        document.documentElement.style.removeProperty('--pink-shift')
+        document.documentElement.style.removeProperty('--blue-shift')
+      }
     }
   }, [])
 
   return null
 }
+

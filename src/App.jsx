@@ -12,6 +12,7 @@ import togetherPhoto from './assets/together.svg'
 import topLeftDesign from './assets/left.svg'
 import topRightDesign from './assets/right.svg'
 import disortDesign from './assets/disort.svg'
+import colorPaletteImg from './assets/color-palette.jpg'
 import './App.css'
 
 
@@ -174,9 +175,13 @@ function App() {
 
               <span className="details-row-rule reveal-item reveal-rule" style={{ '--i': 6 }} aria-hidden="true" />
 
-              <DetailRow icon="🌿" label="Dress Code" index={7} from="left">
-                <p className="detail-primary">{dressCode}</p>
-              </DetailRow>
+              <div className="color-palette-section reveal-item" style={{ '--i': 7 }}>
+                <img
+                  src={colorPaletteImg}
+                  alt="Color palette for the event: Misty Gray (Side of Imelda), Periwinkle Blue (Side of Vic), Taupe and Lilac (All other guests)"
+                  className="color-palette-img"
+                />
+              </div>
             </div>
 
             {note && (

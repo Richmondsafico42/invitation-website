@@ -4,28 +4,55 @@ import FloralSpray from './FloralSpray'
 export default function ScrollFlora() {
   const [progress, setProgress] = useState({ enter: 0, page: 0 })
   const ticking = useRef(false)
+  const animRef = useRef(null)
 
   useEffect(() => {
-    function onScroll() {
-      if (ticking.current) return
-      ticking.current = true
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY
-        const windowH = window.innerHeight
-        const docH = document.documentElement.scrollHeight - windowH
-        const pageProgress = docH > 0 ? scrollY / docH : 0
-        const enterProgress = Math.min(scrollY / (windowH * 0.65), 1)
-        setProgress({ enter: enterProgress, page: pageProgress })
-        ticking.current = false
-      })
+    const isMobile = window.innerWidth < 768
+
+    function calcProgress() {
+      const scrollY = window.scrollY
+      const windowH = window.innerHeight
+      const docH = document.documentElement.scrollHeight - windowH
+      const pageProgress = docH > 0 ? scrollY / docH : 0
+      const enterProgress = Math.min(scrollY / (windowH * 0.65), 1)
+      return { enter: enterProgress, page: pageProgress }
     }
 
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+    if (isMobile) {
+      let currentEnter = 0
+      let currentPage = 0
+      const lerpFactor = 0.1
+
+      function animate() {
+        const target = calcProgress()
+        currentEnter += (target.enter - currentEnter) * lerpFactor
+        currentPage += (target.page - currentPage) * lerpFactor
+        setProgress({ enter: currentEnter, page: currentPage })
+        animRef.current = requestAnimationFrame(animate)
+      }
+
+      animRef.current = requestAnimationFrame(animate)
+
+      return () => {
+        if (animRef.current) cancelAnimationFrame(animRef.current)
+      }
+    } else {
+      function onScroll() {
+        if (ticking.current) return
+        ticking.current = true
+        requestAnimationFrame(() => {
+          setProgress(calcProgress())
+          ticking.current = false
+        })
+      }
+
+      onScroll()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll)
+      return () => {
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
+      }
     }
   }, [])
 
@@ -63,3 +90,4 @@ export default function ScrollFlora() {
     </div>
   )
 }
+

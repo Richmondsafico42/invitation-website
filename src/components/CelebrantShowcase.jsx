@@ -27,39 +27,66 @@ function useScrollProgress(ref) {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    let ticking = false
-    function update() {
-      if (!ref.current) return
+    const isMobile = window.innerWidth < 768
+    let targetProgress = 0
+    let currentProgress = 0
+    let rafId = null
+
+    function calcProgress() {
+      if (!ref.current) return 0
       const rect = ref.current.getBoundingClientRect()
       const windowH = window.innerHeight
       const stickyRange = rect.height - windowH
-      if (stickyRange <= 0) {
-        setProgress(0)
-        ticking = false
-        return
-      }
-      // Start tracking earlier when the section enters the viewport
+      if (stickyRange <= 0) return 0
       const startOffset = windowH * 0.7
       const scrolled = startOffset - rect.top
       const totalRange = stickyRange + startOffset
       const pct = scrolled / totalRange
-      setProgress(Math.min(Math.max(pct, 0), 1))
-      ticking = false
+      return Math.min(Math.max(pct, 0), 1)
     }
 
-    function onScroll() {
-      if (!ticking) {
-        window.requestAnimationFrame(update)
-        ticking = true
+    if (isMobile) {
+      // Smooth lerp loop for mobile — eliminates jitter
+      const lerpFactor = 0.12
+
+      function animate() {
+        targetProgress = calcProgress()
+        currentProgress += (targetProgress - currentProgress) * lerpFactor
+        // Snap if very close to avoid infinite loop
+        if (Math.abs(targetProgress - currentProgress) < 0.001) {
+          currentProgress = targetProgress
+        }
+        setProgress(currentProgress)
+        rafId = requestAnimationFrame(animate)
       }
-    }
 
-    update()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      rafId = requestAnimationFrame(animate)
+
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId)
+      }
+    } else {
+      // Desktop: direct rAF-throttled updates (responsive)
+      let ticking = false
+      function update() {
+        setProgress(calcProgress())
+        ticking = false
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(update)
+          ticking = true
+        }
+      }
+
+      update()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll)
+      return () => {
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
+      }
     }
   }, [ref])
 
