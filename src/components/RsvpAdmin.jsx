@@ -174,23 +174,69 @@ export default function RsvpAdmin({ onClose }) {
   function handleExportCSV() {
     if (rsvps.length === 0) return
     const headers = ['Name', 'Email', 'Attending', 'Guests', 'Message', 'Date Submitted']
-    const rows = rsvps.map((r) => [
-      r.name,
-      r.email,
-      r.attending === 'yes' ? 'Yes' : 'No',
-      r.attending === 'yes' ? r.guests : 0,
-      r.message ? r.message.replace(/"/g, '""') : '',
-      r.timestamp || ''
-    ])
+    
+    // Create Excel Spreadsheet XML/HTML with explicit styling and column widths
+    const excelTemplate = `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+      <head>
+        <!--[if gte mso 9]>
+        <xml>
+          <x:ExcelWorkbook>
+            <x:ExcelWorksheets>
+              <x:ExcelWorksheet>
+                <x:Name>RSVP Guest List</x:Name>
+                <x:WorksheetOptions>
+                  <x:DisplayGridlines/>
+                </x:WorksheetOptions>
+              </x:ExcelWorksheet>
+            </x:ExcelWorksheets>
+          </x:ExcelWorkbook>
+        </xml>
+        <![endif]-->
+        <meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+        <style>
+          table { border-collapse: collapse; }
+          th { background-color: #f0c0e8; font-weight: bold; border: 1px solid #d4d4d4; padding: 8px; font-family: sans-serif; font-size: 11pt; }
+          td { border: 1px solid #d4d4d4; padding: 8px; font-family: sans-serif; font-size: 10pt; vertical-align: top; }
+        </style>
+      </head>
+      <body>
+        <table>
+          <colgroup>
+            <col width="220" /> <!-- Name -->
+            <col width="260" /> <!-- Email -->
+            <col width="110" /> <!-- Attending -->
+            <col width="90" />  <!-- Guests -->
+            <col width="400" /> <!-- Message -->
+            <col width="180" /> <!-- Date Submitted -->
+          </colgroup>
+          <thead>
+            <tr>
+              ${headers.map(h => `<th>${h}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${rsvps.map(r => `
+              <tr>
+                <td>${(r.name || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</td>
+                <td>${(r.email || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</td>
+                <td style="text-align: center;">${r.attending === 'yes' ? 'Yes' : 'No'}</td>
+                <td style="text-align: center;">${r.attending === 'yes' ? r.guests : 0}</td>
+                <td>${(r.message || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</td>
+                <td style="text-align: center;">${r.timestamp || ''}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </body>
+      </html>
+    `
 
-    const csvContent =
-      'data:text/csv;charset=utf-8,' +
-      [headers.join(','), ...rows.map((e) => e.map((val) => `"${val}"`).join(','))].join('\n')
-      
-    const encodedUri = encodeURI(csvContent)
+    const blob = new Blob([excelTemplate], { type: 'application/vnd.ms-excel;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
-    link.setAttribute('href', encodedUri)
-    link.setAttribute('download', `rsvp_guest_list_${new Date().toISOString().split('T')[0]}.csv`)
+    link.href = url
+    link.download = `rsvp_guest_list_${new Date().toISOString().split('T')[0]}.xls`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
@@ -245,7 +291,7 @@ export default function RsvpAdmin({ onClose }) {
           </div>
           <div className="admin-actions">
             <button onClick={handleExportCSV} className="btn btn-secondary btn-sm" disabled={rsvps.length === 0}>
-              Export CSV
+              Export Excel
             </button>
             <button onClick={handleLogout} className="btn btn-secondary btn-sm">
               Log Out

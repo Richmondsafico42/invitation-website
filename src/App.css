@@ -1890,8 +1890,19 @@ main {
 
 @media (max-width: 480px) {
   .admin-stats {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    padding: 1rem 0.5rem;
+  }
+  .stat-value {
+    font-size: 1.8rem;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
   }
   .admin-actions {
     flex-direction: column;
