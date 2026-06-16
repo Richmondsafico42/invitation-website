@@ -233,7 +233,7 @@ function App() {
           {initials}
         </div>
         <h1 className="hero-name cine" style={{ '--d': '0.45s' }}>
-          Letters & Flowers: A Garden Soirées
+          Letters & Flowers: A Garden Soirée
         </h1>
         <p className="hero-subtitle cine" style={{ '--d': '0.65s' }}>
           Celebrating 60 years of Purpose & Vows that Continue to Bloom

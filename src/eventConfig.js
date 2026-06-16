@@ -24,16 +24,16 @@ export const eventConfig = {
   // Celebrant photos — individual images (no background, standing to the side)
   celebrantProfiles: [
     {
-      name: 'Vic',
-      fullName: 'Victoriano Serrano',
-      tagline: '32nd anniversary celebrant',
-      photo: vicPhoto,
-    },
-    {
       name: 'Mel',
       fullName: 'Imelda Serrano',
       tagline: '60th birthday celebrant',
       photo: melPhoto,
+    },
+    {
+      name: 'Vic',
+      fullName: 'Victoriano Serrano',
+      tagline: '32nd anniversary celebrant',
+      photo: vicPhoto,
     },
   ],
 }
