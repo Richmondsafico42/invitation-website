@@ -4,6 +4,8 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, X-Admin-PIN");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
 
+date_default_timezone_set('Asia/Manila');
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }

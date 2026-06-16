@@ -149,7 +149,7 @@ export default function RsvpAdmin({ onClose }) {
                   ...r,
                   ...editForm,
                   guests: editForm.attending === 'no' ? 0 : Number(editForm.guests),
-                  last_updated: new Date().toISOString().slice(0, 19).replace('T', ' ')
+                  last_updated: new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Manila' })
                 }
               : r
           )
