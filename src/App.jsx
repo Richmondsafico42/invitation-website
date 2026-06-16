@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import Countdown from './components/Countdown'
 import RsvpForm from './components/RsvpForm'
 import Petals from './components/Petals'
@@ -107,7 +108,7 @@ function CeremonyModal({ group, onClose }) {
     }
   }, [onClose])
 
-  return (
+  return createPortal(
     <div className="ceremony-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="ceremony-modal-title">
       <div className="ceremony-modal-card" onClick={(e) => e.stopPropagation()}>
         <button className="ceremony-modal-close" onClick={onClose} aria-label="Close">✕</button>
@@ -119,7 +120,8 @@ function CeremonyModal({ group, onClose }) {
           ))}
         </ul>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 

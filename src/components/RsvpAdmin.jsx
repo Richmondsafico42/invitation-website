@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 export default function RsvpAdmin({ onClose }) {
   const [pin, setPin] = useState(() => sessionStorage.getItem('rsvp_admin_pin') || '')
@@ -202,7 +203,7 @@ export default function RsvpAdmin({ onClose }) {
   const declinedCount = rsvps.filter((r) => r.attending === 'no').length
 
   if (!isAuthorized) {
-    return (
+    return createPortal(
       <div className="admin-overlay active">
         <div className="admin-modal admin-login-card">
           <button className="admin-close-btn" onClick={onClose} aria-label="Close Admin Panel">&times;</button>
@@ -229,11 +230,12 @@ export default function RsvpAdmin({ onClose }) {
             </button>
           </form>
         </div>
-      </div>
+      </div>,
+      document.body
     )
   }
 
-  return (
+  return createPortal(
     <div className="admin-overlay active">
       <div className="admin-modal admin-dashboard-card">
         <header className="admin-header">
@@ -409,6 +411,7 @@ export default function RsvpAdmin({ onClose }) {
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
