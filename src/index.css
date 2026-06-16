@@ -9,7 +9,7 @@
   --cream: #fbfaf8;           /* Warm White */
   --ink: #4f4b4c;             /* Deep Warm Gray text */
   --ink-soft: #8a8486;        /* Muted Warm Gray text */
-  --card: rgba(250, 248, 245, 0.70);       /* Wool-tinted glass card */
+  --card: rgba(250, 248, 245, 0.60);       /* Wool-tinted glass card */
   --card-border: rgba(227, 209, 238, 0.45); /* Lilac border */
   --serif: 'Cormorant Garamond', Georgia, serif;
   --display: 'Playfair Display', Georgia, serif;
@@ -49,16 +49,16 @@ body {
   background:
     linear-gradient(
       180deg,
-      rgba(242, 235, 245, calc(0.3 + var(--pink-shift) * 0.16)),
-      rgba(252, 248, 235, calc(0.3 + var(--blue-shift) * 0.22))
+      rgba(250, 240, 245, calc(0.18 + var(--pink-shift) * 0.16)),
+      rgba(242, 235, 245, calc(0.32 + var(--blue-shift) * 0.22))
     ),
-    radial-gradient(circle at 50% calc(12% + var(--scroll-progress, 0) * 34%), rgba(227, 209, 238, calc(var(--pink-shift) * 0.62)), transparent 48%),
-    radial-gradient(circle at 52% calc(88% - var(--scroll-progress, 0) * 34%), rgba(252, 233, 167, calc(var(--blue-shift) * 0.7)), transparent 50%),
+    radial-gradient(circle at 50% calc(12% + var(--scroll-progress, 0) * 34%), rgba(247, 193, 219, calc(var(--pink-shift) * 0.62)), transparent 48%),
+    radial-gradient(circle at 52% calc(88% - var(--scroll-progress, 0) * 34%), rgba(227, 209, 238, calc(var(--blue-shift) * 0.7)), transparent 50%),
     radial-gradient(circle at 12% 18%, rgba(227, 209, 238, 0.50), transparent 42%),
-    radial-gradient(circle at 88% 12%, rgba(252, 233, 167, 0.38), transparent 40%),
-    radial-gradient(circle at 78% 88%, rgba(223, 205, 185, 0.42), transparent 45%),
-    radial-gradient(circle at 20% 92%, rgba(227, 209, 238, 0.40), transparent 45%),
-    linear-gradient(135deg, #fbfaf8, #f5f0e6 45%, #f2ebf5);
+    radial-gradient(circle at 88% 12%, rgba(247, 193, 219, 0.38), transparent 40%),
+    radial-gradient(circle at 78% 88%, rgba(227, 209, 238, 0.42), transparent 45%),
+    radial-gradient(circle at 20% 92%, rgba(247, 193, 219, 0.40), transparent 45%),
+    linear-gradient(135deg, #fdfafc, #f5e8f0 45%, #f2ebf5);
   background-size: 100% 100%, 160% 160%, 170% 170%, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
   animation: bgshift 24s ease-in-out infinite;
 }
