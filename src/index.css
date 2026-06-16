@@ -1,16 +1,16 @@
 :root {
-  /* ─── Lilac · Misty Gray · Periwinkle Blue · Pink Floral palette ─── */
-  --blush: #f0d8ef;           /* soft lilac-pink (was pink blush) */
-  --rose: #c8a8e0;            /* medium lilac / wisteria */
-  --rose-deep: #7b5ea7;       /* deep periwinkle-purple (primary accent) */
-  --gold: #9eaad8;            /* periwinkle blue (replaces gold) */
-  --gold-soft: #b8c4e8;       /* light periwinkle */
-  --sage: #b0bcd8;            /* misty periwinkle-gray */
-  --cream: #f5f3f8;           /* misty gray-white */
-  --ink: #4a4060;             /* deep purple-gray text */
-  --ink-soft: #8a82a0;        /* muted mauve-gray text */
-  --card: rgba(240, 236, 248, 0.60);       /* lilac glass card */
-  --card-border: rgba(180, 160, 220, 0.35); /* lilac-periwinkle border */
+  /* ─── Lilac · Light Yellow · Wool palette ─── */
+  --blush: #dfcdb9;           /* Wool */
+  --rose: #e3d1ee;            /* Lilac */
+  --rose-deep: #b096c4;       /* Medium Lilac (primary accent) */
+  --gold: #fce9a7;            /* Light Yellow */
+  --gold-soft: #fef5cd;       /* Soft Light Yellow */
+  --sage: #d6c8ba;            /* Warm Wool Gray */
+  --cream: #fbfaf8;           /* Warm White */
+  --ink: #4f4b4c;             /* Deep Warm Gray text */
+  --ink-soft: #8a8486;        /* Muted Warm Gray text */
+  --card: rgba(250, 248, 245, 0.70);       /* Wool-tinted glass card */
+  --card-border: rgba(227, 209, 238, 0.45); /* Lilac border */
   --serif: 'Cormorant Garamond', Georgia, serif;
   --display: 'Playfair Display', Georgia, serif;
   --script: 'Great Vibes', cursive;
@@ -49,16 +49,16 @@ body {
   background:
     linear-gradient(
       180deg,
-      rgba(250, 240, 245, calc(0.18 + var(--pink-shift) * 0.16)),
-      rgba(234, 238, 248, calc(0.32 + var(--blue-shift) * 0.22))
+      rgba(242, 235, 245, calc(0.3 + var(--pink-shift) * 0.16)),
+      rgba(252, 248, 235, calc(0.3 + var(--blue-shift) * 0.22))
     ),
-    radial-gradient(circle at 50% calc(12% + var(--scroll-progress, 0) * 34%), rgba(247, 193, 219, calc(var(--pink-shift) * 0.62)), transparent 48%),
-    radial-gradient(circle at 52% calc(88% - var(--scroll-progress, 0) * 34%), rgba(173, 188, 244, calc(var(--blue-shift) * 0.7)), transparent 50%),
-    radial-gradient(circle at 12% 18%, rgba(200, 168, 224, 0.50), transparent 42%),
-    radial-gradient(circle at 88% 12%, rgba(158, 170, 216, 0.38), transparent 40%),
-    radial-gradient(circle at 78% 88%, rgba(176, 188, 216, 0.42), transparent 45%),
-    radial-gradient(circle at 20% 92%, rgba(232, 180, 220, 0.40), transparent 45%),
-    linear-gradient(135deg, #f5f3f8, #ede8f6 45%, #eaecf6);
+    radial-gradient(circle at 50% calc(12% + var(--scroll-progress, 0) * 34%), rgba(227, 209, 238, calc(var(--pink-shift) * 0.62)), transparent 48%),
+    radial-gradient(circle at 52% calc(88% - var(--scroll-progress, 0) * 34%), rgba(252, 233, 167, calc(var(--blue-shift) * 0.7)), transparent 50%),
+    radial-gradient(circle at 12% 18%, rgba(227, 209, 238, 0.50), transparent 42%),
+    radial-gradient(circle at 88% 12%, rgba(252, 233, 167, 0.38), transparent 40%),
+    radial-gradient(circle at 78% 88%, rgba(223, 205, 185, 0.42), transparent 45%),
+    radial-gradient(circle at 20% 92%, rgba(227, 209, 238, 0.40), transparent 45%),
+    linear-gradient(135deg, #fbfaf8, #f5f0e6 45%, #f2ebf5);
   background-size: 100% 100%, 160% 160%, 170% 170%, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%;
   animation: bgshift 24s ease-in-out infinite;
 }

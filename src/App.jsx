@@ -16,7 +16,7 @@ import togetherPhoto from './assets/together.svg'
 import topLeftDesign from './assets/left.svg'
 import topRightDesign from './assets/right.svg'
 import disortDesign from './assets/disort.svg'
-import colorPaletteImg from './assets/color-palette.png'
+import colorPaletteImg from './assets/new-color-palette-2.png'
 import './App.css'
 
 
@@ -307,11 +307,12 @@ function App() {
               <div className="color-palette-section reveal-item" style={{ '--i': 7 }}>
                 <img
                   src={colorPaletteImg}
-                  alt="Color palette for the event: Misty Gray (Side of Imelda), Periwinkle Blue (Side of Vic), Taupe and Lilac (All other guests)"
+                  alt="Color palette for the event: Lilac, Light Yellow, and Wool. Please avoid wearing shades of pink and dark colors."
                   className="color-palette-img"
                 />
                 <p className="color-palette-attire" style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', lineHeight: '1.4' }}>
-                  To complement our garden celebration, ladies are encouraged to wear long dresses, while gentlemen are requested to wear long-sleeved shirts or smart casual attire.
+                  To complement our garden celebration, ladies are encouraged to wear long dresses, while gentlemen are requested to wear long-sleeved shirts or smart casual attire.<br/>
+                  <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>(Please avoid wearing shades of pink and dark colors)</span>
                 </p>
               </div>
             </div>
