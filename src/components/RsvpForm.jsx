@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import MiniCountdown from './MiniCountdown'
 
 const initialForm = { name: '', email: '', guests: '1', attending: 'yes', message: '' }
 
@@ -86,6 +87,16 @@ export default function RsvpForm() {
 
   return (
     <form className="rsvp-form" onSubmit={handleSubmit} noValidate>
+      <div className="rsvp-deadline-banner rsvp-field-anim" style={{ '--i': 3, textAlign: 'center', marginBottom: '1.5rem', padding: '0.85rem 1.25rem', background: 'rgba(180, 160, 220, 0.12)', border: '1px solid rgba(180, 160, 220, 0.25)', borderRadius: '18px', fontSize: '0.92rem', color: 'var(--ink-soft)' }}>
+        <span className="rsvp-deadline-text">Please submit your RSVP before:</span>
+        <div style={{ marginTop: '0.25rem', fontWeight: 'bold', color: 'var(--rose-deep)' }}>
+          Monday, July 13, 2026 at 3:00 PM
+        </div>
+        <div style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+          <MiniCountdown targetDate="2026-07-13T15:00:00" prefix="Time remaining:" />
+        </div>
+      </div>
+
       <div className="field rsvp-field-anim" style={{ '--i': 4 }}>
         <label htmlFor="name">Full name</label>
         <input

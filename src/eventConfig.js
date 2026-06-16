@@ -10,9 +10,9 @@ export const eventConfig = {
   title: "You're Cordially Invited",
   subtitle: 'Celebrating a 60th Birthday & 32 Years of Wedding Anniversary',
   // ISO date string for the party (used for the countdown)
-  dateISO: '2026-07-18T16:30:00',
+  dateISO: '2026-07-18T16:00:00',
   dateLabel: 'Saturday, July 18, 2026',
-  timeLabel: '4:30 PM onwards',
+  timeLabel: '4:00 PM onwards',
   venue: 'CASA ESMERALDA',
   address: 'Purok 5, Bacolor, 2001 Pampanga',
   dressCode: 'Ladies: Pink · Gentlemen: Blue',

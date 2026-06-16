@@ -11,6 +11,7 @@ import CelebrantShowcase from './components/CelebrantShowcase'
 import VenueMap from './components/VenueMap'
 import RsvpAdmin from './components/RsvpAdmin'
 import { eventConfig } from './eventConfig'
+import MiniCountdown from './components/MiniCountdown'
 import togetherPhoto from './assets/together.svg'
 import topLeftDesign from './assets/left.svg'
 import topRightDesign from './assets/right.svg'
@@ -253,6 +254,9 @@ function App() {
 
         <FloralDivider />
         <div className="cine" style={{ '--d': '0.85s' }}>
+          <p className="countdown-event-title" style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', color: 'var(--ink-soft)', marginBottom: '0.65rem', fontSize: '1.05rem', letterSpacing: '0.04em' }}>
+            The celebration starts in:
+          </p>
           <Countdown dateISO={dateISO} />
         </div>
         <a
@@ -262,6 +266,9 @@ function App() {
         >
           RSVP
         </a>
+        <div className="hero-rsvp-deadline cine" style={{ '--d': '1.2s', marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--ink-soft)' }}>
+          <MiniCountdown targetDate="2026-07-13T15:00:00" prefix="RSVP Deadline:" />
+        </div>
       </header>
 
       <main>
