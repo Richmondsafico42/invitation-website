@@ -1815,4 +1815,70 @@ main {
   }
 }
 
+/* ---------- Ceremony Participants ---------- */
+.ceremony-participants {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+  width: 100%;
+}
 
+.ceremony-group {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(180, 160, 220, 0.2);
+  border-radius: 18px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(123, 94, 167, 0.04);
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ceremony-group:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(123, 94, 167, 0.08);
+}
+
+.ceremony-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 4px 8px rgba(123, 94, 167, 0.1));
+}
+
+.ceremony-title {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  color: var(--rose-deep);
+  margin: 0 0 0.75rem 0;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.ceremony-names {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.ceremony-names li {
+  margin-bottom: 0.35rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .ceremony-participants {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  
+  .ceremony-group {
+    padding: 1.25rem;
+  }
+}

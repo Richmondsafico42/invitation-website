@@ -215,6 +215,49 @@ function App() {
                 &ldquo;{note}&rdquo;
               </p>
             )}
+
+            {/* ── Ceremony Participants ── */}
+            <div className="ceremony-participants reveal-item" style={{ '--i': 9 }}>
+              <div className="ceremony-group">
+                <div className="ceremony-icon">🌹</div>
+                <h3 className="ceremony-title">6 Roses</h3>
+                <ul className="ceremony-names">
+                  <li>Ronald Safico</li>
+                  <li>Jhun Safico</li>
+                  <li>Eric Safico</li>
+                  <li>Troy Safico</li>
+                  <li>Cris Baniel</li>
+                  <li>Melvin Zabala</li>
+                  <li>Ēwen Serrano</li>
+                </ul>
+              </div>
+
+              <div className="ceremony-group">
+                <div className="ceremony-icon">🕯️</div>
+                <h3 className="ceremony-title">6 Candles</h3>
+                <ul className="ceremony-names">
+                  <li>Sonia Zabala</li>
+                  <li>Celia Baniel</li>
+                  <li>Bel Serrano</li>
+                  <li>Ester Kelbio</li>
+                  <li>Nikki Safico</li>
+                  <li>Sonia Safico</li>
+                </ul>
+              </div>
+
+              <div className="ceremony-group">
+                <div className="ceremony-icon">📖</div>
+                <h3 className="ceremony-title">Bible Verse for Us</h3>
+                <ul className="ceremony-names">
+                  <li>Mheds Diamzon</li>
+                  <li>Remedios Lugtu</li>
+                  <li>Mercy Sampang</li>
+                  <li>Fatima Cada</li>
+                  <li>Lorieta Perico</li>
+                  <li>Liwayway Mangiliman</li>
+                </ul>
+              </div>
+            </div>
           </ScrollReveal>
         </section>
 
