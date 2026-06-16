@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Countdown from './components/Countdown'
 import RsvpForm from './components/RsvpForm'
 import Petals from './components/Petals'
@@ -22,19 +22,35 @@ function FloralDivider() {
   return (
     <div className="divider" aria-hidden="true">
       <span className="divider-line" />
-      <svg viewBox="0 0 24 24" className="divider-flower" fill="none">
-        {[0, 60, 120, 180, 240, 300].map((deg) => (
+      <svg viewBox="0 0 32 32" className="divider-flower" fill="none">
+        {/* Outer large petals (pink) */}
+        {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
           <ellipse
-            key={deg}
-            cx="12"
-            cy="6.5"
-            rx="2.6"
-            ry="5"
-            fill="#c8a8e0"
-            transform={`rotate(${deg} 12 12)`}
+            key={`outer-${deg}`}
+            cx="16"
+            cy="7"
+            rx="3.2"
+            ry="7.5"
+            fill="#f0c0e8"
+            opacity="0.92"
+            transform={`rotate(${deg} 16 16)`}
           />
         ))}
-        <circle cx="12" cy="12" r="2.6" fill="#9eaad8" />
+        {/* Inner accent petals (lilac) */}
+        {[0, 60, 120, 180, 240, 300].map((deg) => (
+          <ellipse
+            key={`inner-${deg}`}
+            cx="16"
+            cy="9.5"
+            rx="2.2"
+            ry="5"
+            fill="#c8a8e0"
+            opacity="0.85"
+            transform={`rotate(${deg} 16 16)`}
+          />
+        ))}
+        <circle cx="16" cy="16" r="3.5" fill="#9eaad8" />
+        <circle cx="16" cy="16" r="1.8" fill="#fff" opacity="0.7" />
       </svg>
       <span className="divider-line" />
     </div>
@@ -56,6 +72,87 @@ function DetailRow({ icon, label, children, index, from }) {
         {children}
       </div>
     </div>
+  )
+}
+
+const CEREMONY_DATA = [
+  {
+    id: 'roses',
+    icon: '🌹',
+    title: '6 Roses',
+    names: ['Ronald Safico', 'Jhun Safico', 'Eric Safico', 'Troy Safico', 'Cris Baniel', 'Melvin Zabala', 'Ēwen Serrano'],
+  },
+  {
+    id: 'candles',
+    icon: '🕯️',
+    title: '6 Candles',
+    names: ['Sonia Zabala', 'Celia Baniel', 'Bel Serrano', 'Ester Kelbio', 'Nikki Safico', 'Sonia Safico'],
+  },
+  {
+    id: 'bible',
+    icon: '📖',
+    title: 'Bible Verse for Us',
+    names: ['Mheds Diamzon', 'Remedios Lugtu', 'Mercy Sampang', 'Fatima Cada', 'Lorieta Perico', 'Liwayway Mangiliman'],
+  },
+]
+
+function CeremonyModal({ group, onClose }) {
+  useEffect(() => {
+    function onKey(e) { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [onClose])
+
+  return (
+    <div className="ceremony-modal-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="ceremony-modal-title">
+      <div className="ceremony-modal-card" onClick={(e) => e.stopPropagation()}>
+        <button className="ceremony-modal-close" onClick={onClose} aria-label="Close">✕</button>
+        <div className="ceremony-modal-icon">{group.icon}</div>
+        <h3 id="ceremony-modal-title" className="ceremony-modal-title">{group.title}</h3>
+        <ul className="ceremony-modal-names">
+          {group.names.map((name) => (
+            <li key={name}>{name}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+function CeremonySection() {
+  const [activeGroup, setActiveGroup] = useState(null)
+  const close = useCallback(() => setActiveGroup(null), [])
+
+  return (
+    <>
+      <ScrollReveal as="section" className="ceremony-section" mode="stagger" aria-labelledby="ceremony-heading">
+        <p id="ceremony-heading" className="details-eyebrow reveal-item" style={{ '--i': 0 }}>The Celebration</p>
+        <h2 className="details-title reveal-item reveal-glow" style={{ '--i': 1 }}>Special Roles</h2>
+        <div className="reveal-item" style={{ '--i': 2 }}><FloralDivider /></div>
+
+        <div className="ceremony-cards reveal-item" style={{ '--i': 3 }}>
+          {CEREMONY_DATA.map((group) => (
+            <button
+              key={group.id}
+              className="ceremony-card-btn"
+              onClick={() => setActiveGroup(group)}
+              aria-label={`View ${group.title} participants`}
+            >
+              <span className="ceremony-card-icon">{group.icon}</span>
+              <span className="ceremony-card-title">{group.title}</span>
+              <span className="ceremony-card-count">{group.names.length} participants</span>
+              <span className="ceremony-card-cta">Tap to view ↗</span>
+            </button>
+          ))}
+        </div>
+      </ScrollReveal>
+
+      {activeGroup && <CeremonyModal group={activeGroup} onClose={close} />}
+    </>
   )
 }
 
@@ -120,7 +217,7 @@ function App() {
 
       <div className="page">
         <ScrollMotion />
-        <Petals />
+        <Petals count={typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 22} />
         <ScrollFlora />
 
       <header className="hero hero-parallax">
@@ -216,50 +313,11 @@ function App() {
               </p>
             )}
 
-            {/* ── Ceremony Participants ── */}
-            <div className="ceremony-participants reveal-item" style={{ '--i': 9 }}>
-              <div className="ceremony-group">
-                <div className="ceremony-icon">🌹</div>
-                <h3 className="ceremony-title">6 Roses</h3>
-                <ul className="ceremony-names">
-                  <li>Ronald Safico</li>
-                  <li>Jhun Safico</li>
-                  <li>Eric Safico</li>
-                  <li>Troy Safico</li>
-                  <li>Cris Baniel</li>
-                  <li>Melvin Zabala</li>
-                  <li>Ēwen Serrano</li>
-                </ul>
-              </div>
-
-              <div className="ceremony-group">
-                <div className="ceremony-icon">🕯️</div>
-                <h3 className="ceremony-title">6 Candles</h3>
-                <ul className="ceremony-names">
-                  <li>Sonia Zabala</li>
-                  <li>Celia Baniel</li>
-                  <li>Bel Serrano</li>
-                  <li>Ester Kelbio</li>
-                  <li>Nikki Safico</li>
-                  <li>Sonia Safico</li>
-                </ul>
-              </div>
-
-              <div className="ceremony-group">
-                <div className="ceremony-icon">📖</div>
-                <h3 className="ceremony-title">Bible Verse for Us</h3>
-                <ul className="ceremony-names">
-                  <li>Mheds Diamzon</li>
-                  <li>Remedios Lugtu</li>
-                  <li>Mercy Sampang</li>
-                  <li>Fatima Cada</li>
-                  <li>Lorieta Perico</li>
-                  <li>Liwayway Mangiliman</li>
-                </ul>
-              </div>
-            </div>
           </ScrollReveal>
         </section>
+
+        {/* ── Ceremony Participants (separate box) ── */}
+        <CeremonySection />
 
         <ScrollReveal as="section" className="map-section" mode="cine" aria-labelledby="map-heading">
           <h2 id="map-heading" className="section-title reveal-item" style={{ '--i': 0 }}>

@@ -47,23 +47,46 @@ function useScrollProgress(ref) {
 
     if (isMobile) {
       // Smooth lerp loop for mobile — eliminates jitter
-      const lerpFactor = 0.12
+      // Use lower lerp factor for smoother feel with less CPU
+      const lerpFactor = 0.08
+      let isRunning = true
 
       function animate() {
+        if (!isRunning) return
         targetProgress = calcProgress()
-        currentProgress += (targetProgress - currentProgress) * lerpFactor
-        // Snap if very close to avoid infinite loop
-        if (Math.abs(targetProgress - currentProgress) < 0.001) {
+        const diff = targetProgress - currentProgress
+        if (Math.abs(diff) < 0.0005) {
           currentProgress = targetProgress
+          // When settled, slow down by only running on scroll
+          rafId = null
+          return
         }
+        currentProgress += diff * lerpFactor
         setProgress(currentProgress)
         rafId = requestAnimationFrame(animate)
       }
 
-      rafId = requestAnimationFrame(animate)
+      function startAnim() {
+        if (!rafId) {
+          rafId = requestAnimationFrame(animate)
+        }
+      }
+
+      // Only animate on scroll events to save battery
+      const onScroll = () => startAnim()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll)
+
+      // Initial
+      targetProgress = calcProgress()
+      currentProgress = targetProgress
+      setProgress(currentProgress)
 
       return () => {
+        isRunning = false
         if (rafId) cancelAnimationFrame(rafId)
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
       }
     } else {
       // Desktop: direct rAF-throttled updates (responsive)

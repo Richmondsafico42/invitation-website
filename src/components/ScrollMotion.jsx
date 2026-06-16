@@ -81,17 +81,43 @@ export default function ScrollMotion() {
 
     if (isMobile) {
       // Smooth lerp loop on mobile — prevents jitter
-      const lerpFactor = 0.1
+      // Lower lerp factor = smoother but lighter on CPU
+      const lerpFactor = 0.07
+      let isRunning = true
 
       function animate() {
+        if (!isRunning) return
         const targets = calcTargets()
-        currentScrollY += (targets.scrollY - currentScrollY) * lerpFactor
-        currentProgress += (targets.progress - currentProgress) * lerpFactor
-        currentPink += (targets.pinkShift - currentPink) * lerpFactor
-        currentBlue += (targets.blueShift - currentBlue) * lerpFactor
+        const dY = targets.scrollY - currentScrollY
+        const dP = targets.progress - currentProgress
+        const dPink = targets.pinkShift - currentPink
+        const dBlue = targets.blueShift - currentBlue
+
+        // Stop animating when everything has settled
+        const settled = Math.abs(dY) < 0.5 && Math.abs(dP) < 0.0005 && Math.abs(dPink) < 0.003 && Math.abs(dBlue) < 0.003
+        if (settled) {
+          currentScrollY = targets.scrollY
+          currentProgress = targets.progress
+          currentPink = targets.pinkShift
+          currentBlue = targets.blueShift
+          applyValues(currentScrollY, currentProgress, currentPink, currentBlue)
+          rafId = null
+          return
+        }
+
+        currentScrollY += dY * lerpFactor
+        currentProgress += dP * lerpFactor
+        currentPink += dPink * lerpFactor
+        currentBlue += dBlue * lerpFactor
 
         applyValues(currentScrollY, currentProgress, currentPink, currentBlue)
         rafId = requestAnimationFrame(animate)
+      }
+
+      function startAnim() {
+        if (!rafId) {
+          rafId = requestAnimationFrame(animate)
+        }
       }
 
       recalculateCenters()
@@ -102,21 +128,19 @@ export default function ScrollMotion() {
       currentBlue = targets.blueShift
       applyValues(currentScrollY, currentProgress, currentPink, currentBlue)
 
-      rafId = requestAnimationFrame(animate)
-
-      const t1 = setTimeout(recalculateCenters, 150)
-      const t2 = setTimeout(recalculateCenters, 600)
-      const t3 = setTimeout(recalculateCenters, 1500)
-
-      const onResize = () => recalculateCenters()
+      const onScroll = () => startAnim()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      const onResize = () => {
+        recalculateCenters()
+        startAnim()
+      }
       window.addEventListener('resize', onResize)
 
       return () => {
+        isRunning = false
         if (rafId) cancelAnimationFrame(rafId)
+        window.removeEventListener('scroll', onScroll)
         window.removeEventListener('resize', onResize)
-        clearTimeout(t1)
-        clearTimeout(t2)
-        clearTimeout(t3)
         document.documentElement.style.removeProperty('--scroll-y')
         document.documentElement.style.removeProperty('--scroll-progress')
         document.documentElement.style.removeProperty('--pink-shift')
