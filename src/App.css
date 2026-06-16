@@ -1861,6 +1861,11 @@ main {
 }
 
 @media (max-width: 768px) {
+  .admin-overlay {
+    align-items: flex-start;
+    padding: 3rem 1rem;
+    overflow-y: auto;
+  }
   .admin-header {
     flex-direction: column;
     align-items: stretch;
@@ -1872,6 +1877,8 @@ main {
   .admin-modal {
     padding: 1.75rem;
     width: 95%;
+    margin: 0 auto;
+    max-height: none;
   }
   .admin-table th, .admin-table td {
     padding: 0.85rem 1rem;
