@@ -45,6 +45,15 @@
   transform: scaleX(-1) rotate(6deg);
   animation: sway 7.5s ease-in-out infinite reverse;
 }
+
+@media (max-width: 768px) {
+  .spray-hero-l,
+  .spray-hero-r {
+    top: 30px;
+    width: 140px;
+    height: 140px;
+  }
+}
 .spray-rsvp {
   bottom: -40px;
   left: -60px;
