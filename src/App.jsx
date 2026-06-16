@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Countdown from './components/Countdown'
 import RsvpForm from './components/RsvpForm'
 import Petals from './components/Petals'
@@ -7,6 +8,7 @@ import ScrollMotion from './components/ScrollMotion'
 import ScrollReveal from './components/ScrollReveal'
 import CelebrantShowcase from './components/CelebrantShowcase'
 import VenueMap from './components/VenueMap'
+import RsvpAdmin from './components/RsvpAdmin'
 import { eventConfig } from './eventConfig'
 import togetherPhoto from './assets/together.svg'
 import topLeftDesign from './assets/left.svg'
@@ -58,6 +60,27 @@ function DetailRow({ icon, label, children, index, from }) {
 }
 
 function App() {
+  const [isAdminOpen, setIsAdminOpen] = useState(false)
+  const [clickCount, setClickCount] = useState(0)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.has('admin')) {
+      setIsAdminOpen(true)
+    }
+  }, [])
+
+  const handleCreditClick = () => {
+    setClickCount((prev) => {
+      const next = prev + 1
+      if (next >= 5) {
+        setIsAdminOpen(true)
+        return 0
+      }
+      return next
+    })
+  }
+
   const {
     celebrants,
     celebrantProfiles,
@@ -237,7 +260,23 @@ function App() {
         <p className="footer-sub reveal-item" style={{ '--i': 2 }}>
           Hope to see you on {dateLabel}
         </p>
+        
+        <div className="credits-footer reveal-item" style={{ '--i': 3 }}>
+          <p>
+            Made by{' '}
+            <span className="credit-author" onClick={handleCreditClick} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+              Richmond M. Safico
+            </span>
+          </p>
+          <p>
+            Contact: <a href="tel:09925684748">09925684748</a> |{' '}
+            <a href="https://www.facebook.com/Richmond.safico/" target="_blank" rel="noopener noreferrer">
+              Facebook Profile
+            </a>
+          </p>
+        </div>
       </ScrollReveal>
+      {isAdminOpen && <RsvpAdmin onClose={() => setIsAdminOpen(false)} />}
     </div>
     </>
   )

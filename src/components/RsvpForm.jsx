@@ -6,6 +6,8 @@ export default function RsvpForm() {
   const [form, setForm] = useState(initialForm)
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
 
   function validate(values) {
     const next = {}
@@ -25,10 +27,37 @@ export default function RsvpForm() {
 
   function handleSubmit(e) {
     e.preventDefault()
+    if (loading) return
     const nextErrors = validate(form)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length === 0) {
-      setSubmitted(true)
+      setLoading(true)
+      setSubmitError(null)
+      fetch('api/rsvp.php?action=add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(form)
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to submit RSVP')
+          return res.json()
+        })
+        .then(data => {
+          if (data.success) {
+            setSubmitted(true)
+          } else {
+            throw new Error(data.error || 'Failed to submit RSVP')
+          }
+        })
+        .catch(err => {
+          console.error(err)
+          setSubmitError(err.message || 'Failed to submit RSVP. Please try again.')
+        })
+        .finally(() => {
+          setLoading(false)
+        })
     }
   }
 
@@ -126,8 +155,9 @@ export default function RsvpForm() {
         />
       </div>
 
-      <button type="submit" className="btn btn-primary rsvp-field-anim" style={{ '--i': 8 }}>
-        Send RSVP
+      {submitError && <div className="error rsvp-submit-error" style={{ marginBottom: '1rem', color: 'var(--color-accent, #e2b07e)', textAlign: 'center' }}>{submitError}</div>}
+      <button type="submit" className="btn btn-primary rsvp-field-anim" style={{ '--i': 8 }} disabled={loading}>
+        {loading ? 'Sending...' : 'Send RSVP'}
       </button>
     </form>
   )

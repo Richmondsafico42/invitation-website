@@ -191,9 +191,12 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
           <CelebrantPhoto person={celebrants[1]} side="right" progress={progress} />
         </div>
 
-        <p className="celebrant-scroll-hint" style={{ opacity: Math.max(0, 1 - progress * 2.5) }}>
-          Scroll to meet them
-        </p>
+        <div className="celebrant-scroll-hint" style={{ opacity: Math.max(0, 1 - progress * 2.5) }}>
+          <span className="scroll-hint-text">Scroll for more</span>
+          <div className="mouse-indicator">
+            <div className="mouse-wheel"></div>
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -8,5 +8,11 @@ export default defineConfig({
     watch: {
       ignored: ['**/*.exe'],
     },
+    proxy: {
+      '/api': {
+        target: 'http://localhost/invitstion website',
+        changeOrigin: true,
+      },
+    },
   },
 })
