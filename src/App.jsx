@@ -14,7 +14,7 @@ import togetherPhoto from './assets/together.svg'
 import topLeftDesign from './assets/left.svg'
 import topRightDesign from './assets/right.svg'
 import disortDesign from './assets/disort.svg'
-import colorPaletteImg from './assets/color-palette.jpg'
+import colorPaletteImg from './assets/color-palette.png'
 import './App.css'
 
 
@@ -204,6 +204,9 @@ function App() {
                   alt="Color palette for the event: Misty Gray (Side of Imelda), Periwinkle Blue (Side of Vic), Taupe and Lilac (All other guests)"
                   className="color-palette-img"
                 />
+                <p className="color-palette-attire" style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', lineHeight: '1.4' }}>
+                  To complement our garden celebration, ladies are encouraged to wear long dresses, while gentlemen are requested to wear long-sleeved shirts or smart casual attire.
+                </p>
               </div>
             </div>
 
