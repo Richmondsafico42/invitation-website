@@ -134,10 +134,10 @@ function App() {
           {initials}
         </div>
         <h1 className="hero-name cine" style={{ '--d': '0.45s' }}>
-          {names}
+          Letters & Flowers: A Garden Soirées
         </h1>
         <p className="hero-subtitle cine" style={{ '--d': '0.65s' }}>
-          {subtitle}
+          Celebrating 60 years of Purpose & Vows that Continue to Bloom
         </p>
 
         {/* ── Combined celebrants photo ── */}

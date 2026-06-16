@@ -4,7 +4,7 @@ import vicPhoto from './assets/vic.svg'
 // Edit these details to customize the invitation.
 export const eventConfig = {
   // Dual celebrants — 60th birthday & 32nd wedding anniversary
-  celebrants: ['Mel', 'Vic'],
+  celebrants: ['Vic', 'Mel'],
   age: 60,
   weddingYears: 32,
   title: "You're Cordially Invited",
@@ -16,7 +16,7 @@ export const eventConfig = {
   venue: 'CASA ESMERALDA',
   address: 'Purok 5, Bacolor, 2001 Pampanga',
   dressCode: 'Ladies: Pink · Gentlemen: Blue',
-  note: 'Join us as we celebrate a 60th birthday and 32 beautiful years of wedding anniversary.',
+  note: 'Join us as we celebrate a 60th birthday and 32 beautiful years of vows.',
   // Map coordinates for venue (lat, lng)
   mapLat: 14.991236140873456,
   mapLng: 120.6429018329377,
@@ -24,16 +24,16 @@ export const eventConfig = {
   // Celebrant photos — individual images (no background, standing to the side)
   celebrantProfiles: [
     {
-      name: 'Mel',
-      fullName: 'Imelda Serrano',
-      tagline: '60th birthday celebrant',
-      photo: melPhoto,
-    },
-    {
       name: 'Vic',
       fullName: 'Victoriano Serrano',
       tagline: '32nd anniversary celebrant',
       photo: vicPhoto,
+    },
+    {
+      name: 'Mel',
+      fullName: 'Imelda Serrano',
+      tagline: '60th birthday celebrant',
+      photo: melPhoto,
     },
   ],
 }
