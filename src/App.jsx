@@ -88,7 +88,7 @@ const CEREMONY_DATA = [
     id: 'candles',
     icon: '🕯️',
     title: '6 Candles',
-    names: ['Sonia Zabala', 'Celia Baniel', 'Bel Serrano', 'Ester Kelbio', 'Nikki Safico', 'Sonia Safico'],
+    names: ['Sonia Zabala', 'Celia Baniel', 'Ester Kelbio', 'Nikki Safico', 'Sonia Asban', 'Julie Duque'],
   },
   {
     id: 'bible',
