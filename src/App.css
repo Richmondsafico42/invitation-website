@@ -606,6 +606,7 @@ main {
   margin: 0;
   color: var(--rose-deep);
   text-shadow: 0 3px 12px rgba(200, 168, 224, 0.45);
+  -webkit-text-stroke: 0.3px #000;
 }
 
 .footer-script {

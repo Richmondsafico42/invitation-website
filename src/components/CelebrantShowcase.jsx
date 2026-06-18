@@ -222,13 +222,18 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '100%',
-            maxWidth: '220px',
+            maxWidth: '280px',
             opacity: Math.max(0, (progress - 0.4) * 2),
-            fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '0', fontSize: '0.9rem', lineHeight: '1.25', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 8px rgba(255,255,255,0.9)'
+            fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '0', fontSize: '1rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 8px rgba(255,255,255,0.9)'
           }}
         >
-          Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
-          <span style={{ fontWeight: 600, display: 'block', marginTop: '0.2rem', color: 'var(--ink)', fontSize: '0.85rem' }}>Officiating Minister: Ptr. Jeremiah Abay</span>
+          Join us as we renew our vows and<br/>
+          celebrate a love strengthened<br/>
+          by time, faith, and God's grace.<br/>
+          <span style={{ fontWeight: 600, display: 'block', marginTop: '1rem', color: 'var(--ink)' }}>
+            Officiating Minister:<br/>
+            Ptr. Jeremiah Abay
+          </span>
         </p>
 
         <div className="celebrant-scroll-hint" style={{ opacity: Math.max(0, 1 - progress * 2.5) }}>
