@@ -214,6 +214,21 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
           <CelebrantPhoto person={celebrants[1]} side="right" progress={progress} />
         </div>
 
+        <p
+          className="hero-officiating-text"
+          style={{
+            position: 'absolute',
+            bottom: '8%',
+            left: '0',
+            right: '0',
+            opacity: Math.max(0, (progress - 0.4) * 2),
+            fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '0 auto', maxWidth: '440px', fontSize: '1.05rem', lineHeight: '1.4', textAlign: 'center', zIndex: 10, padding: '0 1rem'
+          }}
+        >
+          Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
+          <span style={{ fontWeight: 600, display: 'block', marginTop: '0.4rem', color: 'var(--ink)' }}>Officiating Minister: Ptr. Jeremiah Abay</span>
+        </p>
+
         <div className="celebrant-scroll-hint" style={{ opacity: Math.max(0, 1 - progress * 2.5) }}>
           <span className="scroll-hint-text">Scroll for more</span>
           <div className="mouse-indicator">

@@ -274,13 +274,6 @@ function App() {
       <main>
         <CelebrantShowcase celebrants={celebrantProfiles} age={age} weddingYears={weddingYears} />
 
-        <div style={{ textAlign: 'center', padding: '2rem 1rem 4rem', position: 'relative', zIndex: 2 }}>
-          <p className="reveal-item reveal-glow" style={{ fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '0 auto', maxWidth: '500px', fontSize: '1.1rem', lineHeight: '1.4', '--i': 0 }}>
-            Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
-            <span style={{ fontWeight: 600, display: 'block', marginTop: '0.7rem', color: 'var(--ink)' }}>Officiating Minister: Ptr. Jeremiah Abay</span>
-          </p>
-        </div>
-
         <section className="details" aria-labelledby="details-heading">
           <ScrollReveal className="details-invitation" mode="stagger">
             <FloralSpray className="spray spray-details-l" />
@@ -305,9 +298,9 @@ function App() {
               <span className="details-row-rule reveal-item reveal-rule" style={{ '--i': 4 }} aria-hidden="true" />
 
               <DetailRow icon="🌷" label="Where" index={5} from="right">
+                <a href="#map" style={{ position: 'absolute', top: '1.2rem', right: '1.2rem', fontSize: '0.7rem', padding: '0.3rem 0.6rem', border: '1px solid rgba(200, 168, 224, 0.6)', borderRadius: '12px', color: 'var(--rose-deep)', textDecoration: 'none', letterSpacing: '0.05em', background: 'rgba(255,255,255,0.5)', zIndex: 10 }}>Directions ↗</a>
                 <p className="detail-primary">{venue}</p>
-                <p className="detail-secondary" style={{ marginBottom: '0.8rem' }}>{address}</p>
-                <a href="#map" className="btn btn-secondary" style={{ padding: '0.4rem 1.2rem', fontSize: '0.8rem', letterSpacing: '0.1em', marginTop: '0.5rem' }}>View Map</a>
+                <p className="detail-secondary">{address}</p>
               </DetailRow>
 
               <span className="details-row-rule reveal-item reveal-rule" style={{ '--i': 6 }} aria-hidden="true" />
