@@ -65,7 +65,7 @@ function useHybridScrollProgress(ref) {
           timerId = setTimeout(() => {
             state = 'ANIMATING_IN'
             animStartTime = null
-          }, 1000) // 1 second delay
+          }, 400) // 0.4s delay so it feels responsive
         } else if (state === 'EXITING') {
           // Scrolled away slightly but snapped back before leaving completely
           state = 'ANIMATING_IN'
@@ -77,7 +77,7 @@ function useHybridScrollProgress(ref) {
             animStartProgress = currentProgressRef
           }
           const elapsed = performance.now() - animStartTime
-          const t = Math.min(elapsed / 2500, 1) // 2.5s graceful enter
+          const t = Math.min(elapsed / 1200, 1) // 1.2s graceful enter (faster)
           const target = 0.55 // Middle of the "fully in" state
           const current = animStartProgress + (target - animStartProgress) * easeOutCubic(t)
           
