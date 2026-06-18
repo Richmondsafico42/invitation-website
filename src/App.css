@@ -2193,3 +2193,29 @@ main {
     margin-bottom: 2rem;
   }
 }
+
+/* ---------- Mini Countdown ---------- */
+.hero-rsvp-deadline {
+  font-size: 0.9rem;
+}
+.mini-countdown {
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+.mini-countdown-timer {
+  color: var(--rose-deep);
+  font-family: monospace;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .hero-rsvp-deadline {
+    font-size: 0.75rem;
+  }
+  .mini-countdown {
+    font-size: 0.75rem;
+  }
+  .mini-countdown-timer {
+    font-size: 0.8rem;
+  }
+}

@@ -24,8 +24,8 @@ export default function MiniCountdown({ targetDate, prefix = "Time remaining:" }
   const seconds = Math.floor((timeLeft / 1000) % 60)
 
   return (
-    <span className="mini-countdown" style={{ fontSize: '0.9rem', letterSpacing: '0.04em' }}>
-      {prefix} <strong style={{ color: 'var(--rose-deep)', fontFamily: 'monospace', fontSize: '0.95rem' }}>{days}d {hours}h {minutes}m {seconds}s</strong>
+    <span className="mini-countdown">
+      {prefix} <strong className="mini-countdown-timer">{days}d {hours}h {minutes}m {seconds}s</strong>
     </span>
   )
 }

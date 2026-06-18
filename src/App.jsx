@@ -252,11 +252,6 @@ function App() {
           />
         </div>
 
-        <p className="hero-officiating-text cine" style={{ '--d': '0.8s', fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '1.5rem auto 0.5rem', maxWidth: '440px', fontSize: '1.05rem', lineHeight: '1.4' }}>
-          Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
-          <span style={{ fontWeight: 600, display: 'block', marginTop: '0.7rem', color: 'var(--ink)' }}>Officiating Minister: Ptr. Jeremiah Abay</span>
-        </p>
-
         <FloralDivider />
         <div className="cine" style={{ '--d': '0.85s' }}>
           <p className="countdown-event-title" style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, marginBottom: '0.65rem', fontSize: '1.05rem', letterSpacing: '0.04em' }}>
@@ -271,13 +266,20 @@ function App() {
         >
           RSVP
         </a>
-        <div className="hero-rsvp-deadline cine" style={{ '--d': '1.2s', marginTop: '0.75rem', fontSize: '0.9rem', color: 'var(--ink)', fontWeight: 500 }}>
+        <div className="hero-rsvp-deadline cine" style={{ '--d': '1.2s', marginTop: '0.75rem', color: 'var(--ink)', fontWeight: 500 }}>
           <MiniCountdown targetDate="2026-07-13T15:00:00" prefix="RSVP Deadline:" />
         </div>
       </header>
 
       <main>
         <CelebrantShowcase celebrants={celebrantProfiles} age={age} weddingYears={weddingYears} />
+
+        <div style={{ textAlign: 'center', padding: '2rem 1rem 4rem', position: 'relative', zIndex: 2 }}>
+          <p className="reveal-item reveal-glow" style={{ fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '0 auto', maxWidth: '500px', fontSize: '1.1rem', lineHeight: '1.4', '--i': 0 }}>
+            Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
+            <span style={{ fontWeight: 600, display: 'block', marginTop: '0.7rem', color: 'var(--ink)' }}>Officiating Minister: Ptr. Jeremiah Abay</span>
+          </p>
+        </div>
 
         <section className="details" aria-labelledby="details-heading">
           <ScrollReveal className="details-invitation" mode="stagger">
@@ -304,7 +306,8 @@ function App() {
 
               <DetailRow icon="🌷" label="Where" index={5} from="right">
                 <p className="detail-primary">{venue}</p>
-                <p className="detail-secondary">{address}</p>
+                <p className="detail-secondary" style={{ marginBottom: '0.8rem' }}>{address}</p>
+                <a href="#map" className="btn btn-secondary" style={{ padding: '0.4rem 1.2rem', fontSize: '0.8rem', letterSpacing: '0.1em', marginTop: '0.5rem' }}>View Map</a>
               </DetailRow>
 
               <span className="details-row-rule reveal-item reveal-rule" style={{ '--i': 6 }} aria-hidden="true" />
@@ -316,8 +319,7 @@ function App() {
                   className="color-palette-img"
                 />
                 <p className="color-palette-attire" style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', lineHeight: '1.4' }}>
-                  To complement our garden celebration, ladies are encouraged to wear long dresses, while gentlemen are requested to wear long-sleeved shirts or smart casual attire.<br/>
-                  <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>(Please avoid wearing shades of pink and dark colors)</span>
+                  To complement our garden celebration, ladies are encouraged to wear long dresses, while gentlemen are requested to wear long-sleeved shirts or smart casual attire.
                 </p>
               </div>
             </div>
@@ -334,7 +336,7 @@ function App() {
         {/* ── Ceremony Participants (separate box) ── */}
         <CeremonySection />
 
-        <ScrollReveal as="section" className="map-section" mode="cine" aria-labelledby="map-heading">
+        <ScrollReveal as="section" id="map" className="map-section" mode="cine" aria-labelledby="map-heading">
           <h2 id="map-heading" className="section-title reveal-item" style={{ '--i': 0 }}>
             Find Us Here
           </h2>
