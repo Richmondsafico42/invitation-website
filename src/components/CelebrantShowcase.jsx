@@ -185,15 +185,21 @@ function CelebrantVines({ side, progress }) {
 
   const src = side === 'left' ? leftVines : rightVines
 
+  // Use smaller dimensions for mobile so it doesn't overlap text
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const width = isMobile ? 'clamp(120px, 40vw, 180px)' : 'clamp(200px, 38vw, 400px)'
+  const bottom = isMobile ? '-15%' : '-35%'
+  const sideOffset = isMobile ? '-5vw' : '-8vw'
+
   return (
     <img
       src={src}
       className={`celebrant-vines celebrant-vines--${side}`}
       style={{
         position: 'absolute',
-        bottom: '-35%',
-        [side]: '-8vw',
-        width: 'clamp(200px, 38vw, 400px)',
+        bottom: bottom,
+        [side]: sideOffset,
+        width: width,
         transform: `translate3d(${translateX}vw, ${translateY}%, 0) scale(${scale})`,
         opacity: state.opacity * 0.65,
         willChange: 'transform, opacity',
@@ -267,9 +273,12 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '100%',
-            maxWidth: '280px',
-            opacity: Math.max(0, (progress - 0.4) * 2),
-            fontStyle: 'italic', color: '#1a1124', fontWeight: 600, margin: '0', fontSize: '1.05rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 10px rgba(255,255,255,1)'
+            maxWidth: isMobile ? '220px' : '280px',
+            opacity: getSlideState(progress).opacity,
+            fontStyle: 'italic', color: '#1a1124', fontWeight: 600, margin: '0', 
+            fontSize: isMobile ? '0.95rem' : '1.05rem', 
+            lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', 
+            textShadow: '0 0 10px rgba(255,255,255,1)'
           }}
         >
           Join us as we renew our vows and<br/>
