@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import leftVines from '../assets/left-vines.svg'
 import rightVines from '../assets/right-vines.svg'
 
@@ -25,95 +25,60 @@ function getSlideState(progress) {
   return { enter: 1, hold: 1 - t, exit: t, opacity: Math.max(0, 1 - t) }
 }
 
-function useScrollProgress(ref) {
+/**
+ * Uses IntersectionObserver to detect when the section is visible.
+ * When visible (snapped into view), it animates progress from 0 → 0.55 (fully entered + hold).
+ * When leaving, it animates back out.
+ */
+function useVisibilityProgress(ref) {
+  const [isVisible, setIsVisible] = useState(false)
   const [progress, setProgress] = useState(0)
+  const animRef = useRef(null)
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 768
-    let targetProgress = 0
-    let currentProgress = 0
-    let rafId = null
+    if (!ref.current) return
 
-    function calcProgress() {
-      if (!ref.current) return 0
-      const rect = ref.current.getBoundingClientRect()
-      const windowH = window.innerHeight
-      const stickyRange = rect.height - windowH
-      if (stickyRange <= 0) return 0
-      const startOffset = windowH * 0.7
-      const scrolled = startOffset - rect.top
-      const totalRange = stickyRange + startOffset
-      const pct = scrolled / totalRange
-      return Math.min(Math.max(pct, 0), 1)
-    }
-
-    if (isMobile) {
-      // Smooth lerp loop for mobile — eliminates jitter
-      // Use lower lerp factor for smoother feel with less CPU
-      const lerpFactor = 0.08
-      let isRunning = true
-
-      function animate() {
-        if (!isRunning) return
-        targetProgress = calcProgress()
-        const diff = targetProgress - currentProgress
-        if (Math.abs(diff) < 0.0005) {
-          currentProgress = targetProgress
-          // When settled, slow down by only running on scroll
-          rafId = null
-          return
-        }
-        currentProgress += diff * lerpFactor
-        setProgress(currentProgress)
-        rafId = requestAnimationFrame(animate)
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Consider visible when at least 40% of section is in view
+        setIsVisible(entry.isIntersecting && entry.intersectionRatio > 0.3)
+      },
+      {
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
       }
+    )
 
-      function startAnim() {
-        if (!rafId) {
-          rafId = requestAnimationFrame(animate)
-        }
-      }
-
-      // Only animate on scroll events to save battery
-      const onScroll = () => startAnim()
-      window.addEventListener('scroll', onScroll, { passive: true })
-      window.addEventListener('resize', onScroll)
-
-      // Initial
-      targetProgress = calcProgress()
-      currentProgress = targetProgress
-      setProgress(currentProgress)
-
-      return () => {
-        isRunning = false
-        if (rafId) cancelAnimationFrame(rafId)
-        window.removeEventListener('scroll', onScroll)
-        window.removeEventListener('resize', onScroll)
-      }
-    } else {
-      // Desktop: direct rAF-throttled updates (responsive)
-      let ticking = false
-      function update() {
-        setProgress(calcProgress())
-        ticking = false
-      }
-
-      function onScroll() {
-        if (!ticking) {
-          window.requestAnimationFrame(update)
-          ticking = true
-        }
-      }
-
-      update()
-      window.addEventListener('scroll', onScroll, { passive: true })
-      window.addEventListener('resize', onScroll)
-      return () => {
-        window.removeEventListener('scroll', onScroll)
-        window.removeEventListener('resize', onScroll)
-      }
-    }
+    observer.observe(ref.current)
+    return () => observer.disconnect()
   }, [ref])
+
+  // Animate progress smoothly when visibility changes
+  useEffect(() => {
+    const targetProgress = isVisible ? 0.55 : 0
+    let startTime = null
+    const duration = isVisible ? 1200 : 600 // slower enter, faster exit
+    const startProgress = progress
+
+    if (animRef.current) cancelAnimationFrame(animRef.current)
+
+    function animate(timestamp) {
+      if (!startTime) startTime = timestamp
+      const elapsed = timestamp - startTime
+      const t = Math.min(elapsed / duration, 1)
+      const eased = isVisible ? easeOutCubic(t) : easeInCubic(t)
+      const current = startProgress + (targetProgress - startProgress) * eased
+      setProgress(current)
+
+      if (t < 1) {
+        animRef.current = requestAnimationFrame(animate)
+      }
+    }
+
+    animRef.current = requestAnimationFrame(animate)
+    return () => {
+      if (animRef.current) cancelAnimationFrame(animRef.current)
+    }
+  }, [isVisible])
 
   return progress
 }
@@ -187,7 +152,7 @@ function CelebrantVines({ side, progress }) {
       className={`celebrant-vines celebrant-vines--${side}`}
       style={{
         position: 'absolute',
-        bottom: '-20%',
+        bottom: '-28%',
         [side]: '-8vw',
         width: 'clamp(200px, 38vw, 400px)',
         transform: `translate3d(${translateX}vw, ${translateY}%, 0) scale(${scale})`,
@@ -203,7 +168,7 @@ function CelebrantVines({ side, progress }) {
 
 export default function CelebrantShowcase({ celebrants = [], age, weddingYears }) {
   const sectionRef = useRef(null)
-  const progress = useScrollProgress(sectionRef)
+  const progress = useVisibilityProgress(sectionRef)
 
 
   if (celebrants.length < 2) return null
@@ -265,13 +230,13 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
             width: '100%',
             maxWidth: '280px',
             opacity: Math.max(0, (progress - 0.4) * 2),
-            fontStyle: 'italic', color: 'var(--rose-deep)', fontWeight: 500, margin: '0', fontSize: '1rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 8px rgba(255,255,255,0.9)'
+            fontStyle: 'italic', color: '#5b3a7a', fontWeight: 500, margin: '0', fontSize: '1rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 8px rgba(255,255,255,0.9)'
           }}
         >
           Join us as we renew our vows and<br/>
           celebrate a love strengthened<br/>
           by time, faith, and God's grace.<br/>
-          <span style={{ fontWeight: 600, display: 'block', marginTop: '1rem', color: 'var(--rose-deep)' }}>
+          <span style={{ fontWeight: 600, display: 'block', marginTop: '1rem', color: '#5b3a7a' }}>
             Officiating Minister:<br/>
             Ptr. Jeremiah Abay
           </span>
