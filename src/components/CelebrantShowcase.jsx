@@ -40,11 +40,12 @@ function useVisibilityProgress(ref) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Consider visible when at least 40% of section is in view
-        setIsVisible(entry.isIntersecting && entry.intersectionRatio > 0.3)
+        // Consider visible when heavily snapped (at least 70% in view)
+        // Max possible is ~0.83 (100vh / 120vh)
+        setIsVisible(entry.isIntersecting && entry.intersectionRatio > 0.7)
       },
       {
-        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
       }
     )
 
@@ -54,28 +55,44 @@ function useVisibilityProgress(ref) {
 
   // Animate progress smoothly when visibility changes
   useEffect(() => {
-    const targetProgress = isVisible ? 0.55 : 0
+    let targetProgress = isVisible ? 0.55 : 0
     let startTime = null
     const duration = isVisible ? 2500 : 2000 // slow enter, slow exit
-    const startProgress = progress
+    let currentStartProgress = progress
+    let timerId = null
 
-    if (animRef.current) cancelAnimationFrame(animRef.current)
+    function startAnimation() {
+      if (animRef.current) cancelAnimationFrame(animRef.current)
+      currentStartProgress = progress // Capture progress right when animation starts
 
-    function animate(timestamp) {
-      if (!startTime) startTime = timestamp
-      const elapsed = timestamp - startTime
-      const t = Math.min(elapsed / duration, 1)
-      const eased = isVisible ? easeOutCubic(t) : easeInCubic(t)
-      const current = startProgress + (targetProgress - startProgress) * eased
-      setProgress(current)
+      function animate(timestamp) {
+        if (!startTime) startTime = timestamp
+        const elapsed = timestamp - startTime
+        const t = Math.min(elapsed / duration, 1)
+        const eased = isVisible ? easeOutCubic(t) : easeInCubic(t)
+        const current = currentStartProgress + (targetProgress - currentStartProgress) * eased
+        setProgress(current)
 
-      if (t < 1) {
-        animRef.current = requestAnimationFrame(animate)
+        if (t < 1) {
+          animRef.current = requestAnimationFrame(animate)
+        }
       }
+
+      animRef.current = requestAnimationFrame(animate)
     }
 
-    animRef.current = requestAnimationFrame(animate)
+    if (isVisible) {
+      // Delay 1 second before animating IN when snapped
+      timerId = setTimeout(() => {
+        startAnimation()
+      }, 1000)
+    } else {
+      // Animate OUT immediately when losing snap/scrolling away
+      startAnimation()
+    }
+
     return () => {
+      if (timerId) clearTimeout(timerId)
       if (animRef.current) cancelAnimationFrame(animRef.current)
     }
   }, [isVisible])
