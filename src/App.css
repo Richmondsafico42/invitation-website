@@ -336,7 +336,14 @@
   text-transform: uppercase;
   font-size: 0.8rem;
   color: var(--rose-deep);
+  font-weight: 600;
   margin: 0 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .hero-eyebrow {
+    letter-spacing: 0.25em;
+  }
 }
 
 .monogram {
@@ -575,7 +582,14 @@ main {
   text-transform: uppercase;
   font-size: 0.78rem;
   color: var(--rose-deep);
+  font-weight: 600;
   margin: 0 0 0.6rem;
+}
+
+@media (max-width: 768px) {
+  .details-eyebrow {
+    letter-spacing: 0.25em;
+  }
 }
 
 .details-title {

@@ -252,6 +252,11 @@ function App() {
           />
         </div>
 
+        <p className="hero-officiating-text cine" style={{ '--d': '0.8s', fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '1.5rem auto 0.5rem', maxWidth: '440px', fontSize: '1.05rem', lineHeight: '1.4' }}>
+          Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
+          <span style={{ fontWeight: 600, display: 'block', marginTop: '0.7rem', color: 'var(--ink)' }}>Officiating Minister: Ptr. Jeremiah Abay</span>
+        </p>
+
         <FloralDivider />
         <div className="cine" style={{ '--d': '0.85s' }}>
           <p className="countdown-event-title" style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, marginBottom: '0.65rem', fontSize: '1.05rem', letterSpacing: '0.04em' }}>
@@ -310,9 +315,9 @@ function App() {
                   alt="Color palette for the event: Lilac, Light Yellow, and Wool. Please avoid wearing shades of pink and dark colors."
                   className="color-palette-img"
                 />
-                <p className="color-palette-attire" style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', fontWeight: 500, lineHeight: '1.4' }}>
-                  Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
-                  <span style={{ fontSize: '1.05rem', fontWeight: 600, display: 'block', marginTop: '0.7rem' }}>Officiating Minister: Ptr. Jeremiah Abay</span>
+                <p className="color-palette-attire" style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', lineHeight: '1.4' }}>
+                  To complement our garden celebration, ladies are encouraged to wear long dresses, while gentlemen are requested to wear long-sleeved shirts or smart casual attire.<br/>
+                  <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>(Please avoid wearing shades of pink and dark colors)</span>
                 </p>
               </div>
             </div>
