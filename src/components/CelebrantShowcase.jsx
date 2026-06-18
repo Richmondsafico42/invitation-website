@@ -26,76 +26,129 @@ function getSlideState(progress) {
 }
 
 /**
- * Uses IntersectionObserver to detect when the section is visible.
- * When visible (snapped into view), it animates progress from 0 → 0.55 (fully entered + hold).
- * When leaving, it animates back out.
+ * Hybrid Scroll Hook:
+ * 1. When scrolling toward the section, items stay completely hidden.
+ * 2. When the section snaps into the center, it waits 1 second.
+ * 3. It then smoothly animates all items in (time-based).
+ * 4. When the user scrolls away, items smoothly animate out strictly tied to their scroll position.
  */
-function useVisibilityProgress(ref) {
-  const [isVisible, setIsVisible] = useState(false)
+function useHybridScrollProgress(ref) {
   const [progress, setProgress] = useState(0)
-  const animRef = useRef(null)
 
   useEffect(() => {
-    if (!ref.current) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Consider visible when heavily snapped (at least 70% in view)
-        // Max possible is ~0.83 (100vh / 120vh)
-        setIsVisible(entry.isIntersecting && entry.intersectionRatio > 0.7)
-      },
-      {
-        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
-      }
-    )
-
-    observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [ref])
-
-  // Animate progress smoothly when visibility changes
-  useEffect(() => {
-    let targetProgress = isVisible ? 0.55 : 0
-    let startTime = null
-    const duration = isVisible ? 2500 : 2000 // slow enter, slow exit
-    let currentStartProgress = progress
+    let rafId = null
+    let state = 'HIDDEN' // States: HIDDEN, WAITING, ANIMATING_IN, IN, EXITING
     let timerId = null
+    let animStartTime = null
+    let animStartProgress = 0
+    let currentProgressRef = 0
 
-    function startAnimation() {
-      if (animRef.current) cancelAnimationFrame(animRef.current)
-      currentStartProgress = progress // Capture progress right when animation starts
+    function update() {
+      if (!ref.current) return
 
-      function animate(timestamp) {
-        if (!startTime) startTime = timestamp
-        const elapsed = timestamp - startTime
-        const t = Math.min(elapsed / duration, 1)
-        const eased = isVisible ? easeOutCubic(t) : easeInCubic(t)
-        const current = currentStartProgress + (targetProgress - currentStartProgress) * eased
-        setProgress(current)
+      const rect = ref.current.getBoundingClientRect()
+      const windowH = window.innerHeight
+      // Distance from element center to viewport center
+      const dist = (rect.top + rect.height / 2) - (windowH / 2)
+      // Normalize dist so that 0 is perfectly centered
+      const normalizedDist = dist / windowH
+      const absDist = Math.abs(normalizedDist)
 
-        if (t < 1) {
-          animRef.current = requestAnimationFrame(animate)
+      // Snap zone: within 15% of the center of the viewport
+      const isSnapped = absDist < 0.15
+
+      if (isSnapped) {
+        if (state === 'HIDDEN') {
+          // Just snapped! Start waiting.
+          state = 'WAITING'
+          if (timerId) clearTimeout(timerId)
+          timerId = setTimeout(() => {
+            state = 'ANIMATING_IN'
+            animStartTime = null
+          }, 1000) // 1 second delay
+        } else if (state === 'EXITING') {
+          // Scrolled away slightly but snapped back before leaving completely
+          state = 'ANIMATING_IN'
+          animStartTime = null
+        } else if (state === 'ANIMATING_IN') {
+          // Play the smooth time-based intro animation
+          if (!animStartTime) {
+            animStartTime = performance.now()
+            animStartProgress = currentProgressRef
+          }
+          const elapsed = performance.now() - animStartTime
+          const t = Math.min(elapsed / 2500, 1) // 2.5s graceful enter
+          const target = 0.55 // Middle of the "fully in" state
+          const current = animStartProgress + (target - animStartProgress) * easeOutCubic(t)
+          
+          setProgress(current)
+          currentProgressRef = current
+
+          if (t >= 1) {
+            state = 'IN'
+          }
+        } else if (state === 'IN') {
+          // Hold the fully visible state
+          setProgress(0.55)
+          currentProgressRef = 0.55
+        }
+      } else {
+        // Not snapped -> Scrolling away (or toward, but not yet there)
+        if (timerId) {
+          clearTimeout(timerId)
+          timerId = null
+        }
+
+        if (state === 'WAITING') {
+           // Scrolled away before the 1s timer finished
+           state = 'HIDDEN'
+        } else if (state === 'ANIMATING_IN' || state === 'IN' || state === 'EXITING') {
+           state = 'EXITING'
+           
+           // Real-time scroll tracking for the exit animation
+           if (normalizedDist > 0) {
+             // Exiting towards bottom (scrolling up)
+             let t = (normalizedDist - 0.15) / 0.85
+             if (t >= 1) {
+                state = 'HIDDEN'
+                setProgress(0)
+                currentProgressRef = 0
+             } else {
+                const val = 0.45 * (1 - t)
+                setProgress(val)
+                currentProgressRef = val
+             }
+           } else {
+             // Exiting towards top (scrolling down)
+             let t = (-normalizedDist - 0.15) / 0.85
+             if (t >= 1) {
+                state = 'HIDDEN'
+                setProgress(1)
+                currentProgressRef = 1
+             } else {
+                const val = 0.75 + 0.25 * t
+                setProgress(val)
+                currentProgressRef = val
+             }
+           }
+        } else {
+           // HIDDEN state: ensure it stays clamped to 0 or 1 so it's fully invisible
+           const val = normalizedDist > 0 ? 0 : 1
+           setProgress(val)
+           currentProgressRef = val
         }
       }
 
-      animRef.current = requestAnimationFrame(animate)
+      rafId = requestAnimationFrame(update)
     }
 
-    if (isVisible) {
-      // Delay 1 second before animating IN when snapped
-      timerId = setTimeout(() => {
-        startAnimation()
-      }, 1000)
-    } else {
-      // Animate OUT immediately when losing snap/scrolling away
-      startAnimation()
-    }
+    rafId = requestAnimationFrame(update)
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId)
       if (timerId) clearTimeout(timerId)
-      if (animRef.current) cancelAnimationFrame(animRef.current)
     }
-  }, [isVisible])
+  }, [ref])
 
   return progress
 }
@@ -185,7 +238,7 @@ function CelebrantVines({ side, progress }) {
 
 export default function CelebrantShowcase({ celebrants = [], age, weddingYears }) {
   const sectionRef = useRef(null)
-  const progress = useVisibilityProgress(sectionRef)
+  const progress = useHybridScrollProgress(sectionRef)
 
 
   if (celebrants.length < 2) return null
