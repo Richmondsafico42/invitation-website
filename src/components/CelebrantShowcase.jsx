@@ -187,9 +187,9 @@ function CelebrantVines({ side, progress }) {
       className={`celebrant-vines celebrant-vines--${side}`}
       style={{
         position: 'absolute',
-        bottom: '-5%',
-        [side]: '2vw',
-        width: 'clamp(150px, 30vw, 300px)',
+        bottom: '-20%',
+        [side]: '-8vw',
+        width: 'clamp(200px, 38vw, 400px)',
         transform: `translate3d(${translateX}vw, ${translateY}%, 0) scale(${scale})`,
         opacity: state.opacity * 0.65,
         willChange: 'transform, opacity',
@@ -259,7 +259,7 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
           className="hero-officiating-text"
           style={{
             position: 'absolute',
-            top: '58%',
+            top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '100%',
