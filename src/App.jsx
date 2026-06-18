@@ -82,7 +82,7 @@ const CEREMONY_DATA = [
     id: 'roses',
     icon: '🌹',
     title: '6 Roses',
-    names: ['Ronald Safico', 'Jhun Safico', 'Eric Safico', 'Troy Safico', 'Cris Baniel', 'Melvin Zabala', 'Ēwen Serrano'],
+    names: ['Ronald Safico', 'Jhun Safico', 'Eric Safico', 'Troy Safico', 'Cris Baniel', 'Melvin Zabala', 'Ēwen Serrano (Son)'],
   },
   {
     id: 'candles',

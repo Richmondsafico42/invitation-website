@@ -371,6 +371,7 @@
   margin: 0;
   color: var(--rose-deep);
   text-shadow: 0 3px 12px rgba(200, 168, 224, 0.5);
+  -webkit-text-stroke: 0.3px #000;
 }
 
 .hero-subtitle {
@@ -545,6 +546,7 @@ main {
   font-size: clamp(1.8rem, 5vw, 2.6rem);
   margin: 0;
   color: var(--rose-deep);
+  -webkit-text-stroke: 0.3px #000;
 }
 .details {
   margin-bottom: 3.5rem;
@@ -604,6 +606,15 @@ main {
   margin: 0;
   color: var(--rose-deep);
   text-shadow: 0 3px 12px rgba(200, 168, 224, 0.45);
+}
+
+.footer-script {
+  font-family: var(--script);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  line-height: 1.2;
+  margin: 0;
+  color: var(--rose-deep);
+  -webkit-text-stroke: 0.3px #000;
 }
 
 .details-rows {
