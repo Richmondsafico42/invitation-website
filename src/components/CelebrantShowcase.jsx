@@ -218,11 +218,13 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
           className="hero-officiating-text"
           style={{
             position: 'absolute',
-            bottom: '8%',
-            left: '0',
-            right: '0',
+            top: '55%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '100%',
+            maxWidth: '260px',
             opacity: Math.max(0, (progress - 0.4) * 2),
-            fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '0 auto', maxWidth: '440px', fontSize: '1.05rem', lineHeight: '1.4', textAlign: 'center', zIndex: 10, padding: '0 1rem'
+            fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '0', fontSize: '1rem', lineHeight: '1.4', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 8px rgba(255,255,255,0.9)'
           }}
         >
           Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
