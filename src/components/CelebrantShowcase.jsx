@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import leftVines from '../assets/left-vines.svg'
+import rightVines from '../assets/right-vines.svg'
 
 function easeOutCubic(t) {
   return 1 - (1 - t) ** 3
@@ -163,6 +165,40 @@ function CelebrantPhoto({ person, side, progress }) {
   )
 }
 
+function CelebrantVines({ side, progress }) {
+  const state = getSlideState(progress)
+  const fromSide = side === 'left' ? -1 : 1
+  const enterX = (1 - state.enter) * fromSide * 48
+  const exitX = state.exit * fromSide * 34
+  const translateX = enterX + exitX
+  const scale = 0.9 + state.enter * 0.1 - state.exit * 0.1
+
+  const enterY = (1 - state.enter) * 12
+  const exitY = -state.exit * 8
+  const translateY = enterY + exitY
+
+  const src = side === 'left' ? leftVines : rightVines
+
+  return (
+    <img
+      src={src}
+      className={`celebrant-vines celebrant-vines--${side}`}
+      style={{
+        position: 'absolute',
+        bottom: '-15%',
+        [side]: '-10vw',
+        width: 'clamp(150px, 30vw, 300px)',
+        transform: `translate3d(${translateX}vw, ${translateY}%, 0) scale(${scale})`,
+        opacity: state.opacity,
+        willChange: 'transform, opacity',
+        zIndex: 1,
+      }}
+      alt=""
+      role="presentation"
+    />
+  )
+}
+
 export default function CelebrantShowcase({ celebrants = [], age, weddingYears }) {
   const sectionRef = useRef(null)
   const progress = useScrollProgress(sectionRef)
@@ -212,25 +248,28 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
 
           {/* Right — Vic's photo pushed to the very edge */}
           <CelebrantPhoto person={celebrants[1]} side="right" progress={progress} />
+
+          <CelebrantVines side="left" progress={progress} />
+          <CelebrantVines side="right" progress={progress} />
         </div>
 
         <p
           className="hero-officiating-text"
           style={{
             position: 'absolute',
-            top: '55%',
+            top: '45%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '100%',
-            maxWidth: '280px',
+            maxWidth: '320px',
             opacity: Math.max(0, (progress - 0.4) * 2),
-            fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, margin: '0', fontSize: '1rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 8px rgba(255,255,255,0.9)'
+            fontStyle: 'normal', color: 'var(--rose-deep)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0', fontSize: '1.05rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 12px rgba(255,255,255,1)'
           }}
         >
           Join us as we renew our vows and<br/>
           celebrate a love strengthened<br/>
           by time, faith, and God's grace.<br/>
-          <span style={{ fontWeight: 600, display: 'block', marginTop: '1rem', color: 'var(--ink)' }}>
+          <span style={{ fontWeight: 800, display: 'block', marginTop: '1rem', color: 'var(--rose-deep)' }}>
             Officiating Minister:<br/>
             Ptr. Jeremiah Abay
           </span>
