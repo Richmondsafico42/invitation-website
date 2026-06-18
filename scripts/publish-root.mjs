@@ -4,7 +4,7 @@ import { join } from 'node:path'
 const root = '.'
 const dist = 'dist'
 
-const files = ['index.html', '.htaccess', 'favicon.svg']
+const files = ['index.html', '.htaccess', 'favicon.svg', 'og-image.jpg']
 
 if (!existsSync(join(dist, 'index.html'))) {
   throw new Error('Build output missing dist/index.html. Run npm run build first.')
