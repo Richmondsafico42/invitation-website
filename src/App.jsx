@@ -298,7 +298,7 @@ function App() {
               <span className="details-row-rule reveal-item reveal-rule" style={{ '--i': 4 }} aria-hidden="true" />
 
               <DetailRow icon="🌷" label="Where" index={5} from="right">
-                <a href="#map" style={{ position: 'absolute', top: '1.2rem', right: '1.2rem', fontSize: '0.7rem', padding: '0.3rem 0.6rem', border: '1px solid rgba(200, 168, 224, 0.6)', borderRadius: '12px', color: 'var(--rose-deep)', textDecoration: 'none', letterSpacing: '0.05em', background: 'rgba(255,255,255,0.5)', zIndex: 10 }}>Directions ↗</a>
+                <a href="#map" onClick={(e) => { e.preventDefault(); document.getElementById('map')?.scrollIntoView({ behavior: 'smooth' }); }} style={{ position: 'absolute', top: '1.2rem', right: '1.2rem', fontSize: '0.7rem', padding: '0.3rem 0.6rem', border: '1px solid rgba(200, 168, 224, 0.6)', borderRadius: '12px', color: 'var(--rose-deep)', textDecoration: 'none', letterSpacing: '0.05em', background: 'rgba(255,255,255,0.5)', zIndex: 10 }}>Directions ↗</a>
                 <p className="detail-primary">{venue}</p>
                 <p className="detail-secondary">{address}</p>
               </DetailRow>
