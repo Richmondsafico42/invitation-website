@@ -56,7 +56,7 @@ function useVisibilityProgress(ref) {
   useEffect(() => {
     const targetProgress = isVisible ? 0.55 : 0
     let startTime = null
-    const duration = isVisible ? 1200 : 600 // slower enter, faster exit
+    const duration = isVisible ? 2500 : 2000 // slow enter, slow exit
     const startProgress = progress
 
     if (animRef.current) cancelAnimationFrame(animRef.current)
@@ -152,7 +152,7 @@ function CelebrantVines({ side, progress }) {
       className={`celebrant-vines celebrant-vines--${side}`}
       style={{
         position: 'absolute',
-        bottom: '-28%',
+        bottom: '-35%',
         [side]: '-8vw',
         width: 'clamp(200px, 38vw, 400px)',
         transform: `translate3d(${translateX}vw, ${translateY}%, 0) scale(${scale})`,
@@ -230,13 +230,13 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
             width: '100%',
             maxWidth: '280px',
             opacity: Math.max(0, (progress - 0.4) * 2),
-            fontStyle: 'italic', color: '#5b3a7a', fontWeight: 500, margin: '0', fontSize: '1rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 8px rgba(255,255,255,0.9)'
+            fontStyle: 'italic', color: '#1a1124', fontWeight: 600, margin: '0', fontSize: '1.05rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 10px rgba(255,255,255,1)'
           }}
         >
           Join us as we renew our vows and<br/>
           celebrate a love strengthened<br/>
           by time, faith, and God's grace.<br/>
-          <span style={{ fontWeight: 600, display: 'block', marginTop: '1rem', color: '#5b3a7a' }}>
+          <span style={{ fontWeight: 700, display: 'block', marginTop: '1rem', color: '#1a1124' }}>
             Officiating Minister:<br/>
             Ptr. Jeremiah Abay
           </span>
