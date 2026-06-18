@@ -166,10 +166,12 @@ function CelebrantPhoto({ person, side, progress }) {
 }
 
 function CelebrantVines({ side, progress }) {
-  const state = getSlideState(progress)
+  // Delay vines: they appear later than the celebrant photos
+  const delayedProgress = Math.max(0, (progress - 0.15) / 0.85)
+  const state = getSlideState(delayedProgress)
   const fromSide = side === 'left' ? -1 : 1
-  const enterX = (1 - state.enter) * fromSide * 48
-  const exitX = state.exit * fromSide * 34
+  const enterX = (1 - state.enter) * fromSide * 38
+  const exitX = state.exit * fromSide * 30
   const translateX = enterX + exitX
   const scale = 0.9 + state.enter * 0.1 - state.exit * 0.1
 
@@ -185,11 +187,11 @@ function CelebrantVines({ side, progress }) {
       className={`celebrant-vines celebrant-vines--${side}`}
       style={{
         position: 'absolute',
-        bottom: '-15%',
-        [side]: '-10vw',
+        bottom: '-5%',
+        [side]: '2vw',
         width: 'clamp(150px, 30vw, 300px)',
         transform: `translate3d(${translateX}vw, ${translateY}%, 0) scale(${scale})`,
-        opacity: state.opacity,
+        opacity: state.opacity * 0.65,
         willChange: 'transform, opacity',
         zIndex: 1,
       }}
@@ -257,19 +259,19 @@ export default function CelebrantShowcase({ celebrants = [], age, weddingYears }
           className="hero-officiating-text"
           style={{
             position: 'absolute',
-            top: '45%',
+            top: '58%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '100%',
-            maxWidth: '320px',
+            maxWidth: '280px',
             opacity: Math.max(0, (progress - 0.4) * 2),
-            fontStyle: 'normal', color: 'var(--rose-deep)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0', fontSize: '1.05rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 12px rgba(255,255,255,1)'
+            fontStyle: 'italic', color: 'var(--rose-deep)', fontWeight: 500, margin: '0', fontSize: '1rem', lineHeight: '1.6', textAlign: 'center', zIndex: 10, padding: '0', textShadow: '0 0 8px rgba(255,255,255,0.9)'
           }}
         >
           Join us as we renew our vows and<br/>
           celebrate a love strengthened<br/>
           by time, faith, and God's grace.<br/>
-          <span style={{ fontWeight: 800, display: 'block', marginTop: '1rem', color: 'var(--rose-deep)' }}>
+          <span style={{ fontWeight: 600, display: 'block', marginTop: '1rem', color: 'var(--rose-deep)' }}>
             Officiating Minister:<br/>
             Ptr. Jeremiah Abay
           </span>

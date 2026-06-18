@@ -921,6 +921,9 @@ main {
   width: 100vw;
   margin: 0 0 2rem calc(50% - 50vw);
   overflow: visible;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  scroll-margin-top: 0;
 }
 
 @media (max-width: 560px) {
