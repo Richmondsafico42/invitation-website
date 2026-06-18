@@ -11,8 +11,8 @@ function easeInCubic(t) {
 }
 
 function getSlideState(progress) {
-  const enterEnd = 0.45
-  const holdEnd = 0.75
+  const enterEnd = 0.35
+  const holdEnd = 0.65
 
   if (progress < enterEnd) {
     const t = easeOutCubic(progress / enterEnd)
@@ -25,128 +25,97 @@ function getSlideState(progress) {
   return { enter: 1, hold: 1 - t, exit: t, opacity: Math.max(0, 1 - t) }
 }
 
-/**
- * Hybrid Scroll Hook:
- * 1. When scrolling toward the section, items stay completely hidden.
- * 2. When the section snaps into the center, it waits 1 second.
- * 3. It then smoothly animates all items in (time-based).
- * 4. When the user scrolls away, items smoothly animate out strictly tied to their scroll position.
- */
-function useHybridScrollProgress(ref) {
+function useScrollProgress(ref) {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+    let targetProgress = 0
+    let currentProgress = 0
     let rafId = null
-    let state = 'HIDDEN' // States: HIDDEN, WAITING, ANIMATING_IN, IN, EXITING
-    let timerId = null
-    let animStartTime = null
-    let animStartProgress = 0
-    let currentProgressRef = 0
 
-    function update() {
-      if (!ref.current) return
-
+    function calcProgress() {
+      if (!ref.current) return 0
       const rect = ref.current.getBoundingClientRect()
       const windowH = window.innerHeight
-      // Distance from element center to viewport center
-      const dist = (rect.top + rect.height / 2) - (windowH / 2)
-      // Normalize dist so that 0 is perfectly centered
-      const normalizedDist = dist / windowH
-      const absDist = Math.abs(normalizedDist)
+      const windowHalf = windowH / 2
+      const elemHalf = rect.height / 2
+      const elemCenter = rect.top + elemHalf
 
-      // Snap zone: within 15% of the center of the viewport
-      const isSnapped = absDist < 0.15
+      // distance from element center to viewport center.
+      // 0 = perfectly centered
+      const dist = elemCenter - windowHalf
+      
+      // We want progress = 0.5 when dist == 0
+      const range = windowH * 1.5 // Total scroll animation range
+      
+      let normalized = dist / range
+      normalized = Math.min(Math.max(normalized, -0.5), 0.5) // Clamped to [-0.5, 0.5]
+      
+      // When dist > 0 (element below center), progress goes from 0 to 0.5
+      // When dist < 0 (element above center), progress goes from 0.5 to 1
+      return 0.5 - normalized
+    }
 
-      if (isSnapped) {
-        if (state === 'HIDDEN') {
-          // Just snapped! Start waiting.
-          state = 'WAITING'
-          if (timerId) clearTimeout(timerId)
-          timerId = setTimeout(() => {
-            state = 'ANIMATING_IN'
-            animStartTime = null
-          }, 400) // 0.4s delay so it feels responsive
-        } else if (state === 'EXITING') {
-          // Scrolled away slightly but snapped back before leaving completely
-          state = 'ANIMATING_IN'
-          animStartTime = null
-        } else if (state === 'ANIMATING_IN') {
-          // Play the smooth time-based intro animation
-          if (!animStartTime) {
-            animStartTime = performance.now()
-            animStartProgress = currentProgressRef
-          }
-          const elapsed = performance.now() - animStartTime
-          const t = Math.min(elapsed / 1200, 1) // 1.2s graceful enter (faster)
-          const target = 0.55 // Middle of the "fully in" state
-          const current = animStartProgress + (target - animStartProgress) * easeOutCubic(t)
-          
-          setProgress(current)
-          currentProgressRef = current
+    if (isMobile) {
+      const lerpFactor = 0.08
+      let isRunning = true
 
-          if (t >= 1) {
-            state = 'IN'
-          }
-        } else if (state === 'IN') {
-          // Hold the fully visible state
-          setProgress(0.55)
-          currentProgressRef = 0.55
+      function animate() {
+        if (!isRunning) return
+        targetProgress = calcProgress()
+        const diff = targetProgress - currentProgress
+        if (Math.abs(diff) < 0.0005) {
+          currentProgress = targetProgress
+          rafId = null
+          return
         }
-      } else {
-        // Not snapped -> Scrolling away (or toward, but not yet there)
-        if (timerId) {
-          clearTimeout(timerId)
-          timerId = null
-        }
+        currentProgress += diff * lerpFactor
+        setProgress(currentProgress)
+        rafId = requestAnimationFrame(animate)
+      }
 
-        if (state === 'WAITING') {
-           // Scrolled away before the 1s timer finished
-           state = 'HIDDEN'
-        } else if (state === 'ANIMATING_IN' || state === 'IN' || state === 'EXITING') {
-           state = 'EXITING'
-           
-           // Real-time scroll tracking for the exit animation
-           if (normalizedDist > 0) {
-             // Exiting towards bottom (scrolling up)
-             let t = (normalizedDist - 0.15) / 0.85
-             if (t >= 1) {
-                state = 'HIDDEN'
-                setProgress(0)
-                currentProgressRef = 0
-             } else {
-                const val = 0.45 * (1 - t)
-                setProgress(val)
-                currentProgressRef = val
-             }
-           } else {
-             // Exiting towards top (scrolling down)
-             let t = (-normalizedDist - 0.15) / 0.85
-             if (t >= 1) {
-                state = 'HIDDEN'
-                setProgress(1)
-                currentProgressRef = 1
-             } else {
-                const val = 0.75 + 0.25 * t
-                setProgress(val)
-                currentProgressRef = val
-             }
-           }
-        } else {
-           // HIDDEN state: ensure it stays clamped to 0 or 1 so it's fully invisible
-           const val = normalizedDist > 0 ? 0 : 1
-           setProgress(val)
-           currentProgressRef = val
+      function startAnim() {
+        if (!rafId) {
+          rafId = requestAnimationFrame(animate)
         }
       }
 
-      rafId = requestAnimationFrame(update)
-    }
+      const onScroll = () => startAnim()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll)
 
-    rafId = requestAnimationFrame(update)
+      targetProgress = calcProgress()
+      currentProgress = targetProgress
+      setProgress(currentProgress)
 
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId)
-      if (timerId) clearTimeout(timerId)
+      return () => {
+        isRunning = false
+        if (rafId) cancelAnimationFrame(rafId)
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
+      }
+    } else {
+      let ticking = false
+      function update() {
+        setProgress(calcProgress())
+        ticking = false
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(update)
+          ticking = true
+        }
+      }
+
+      update()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll)
+      return () => {
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
+      }
     }
   }, [ref])
 
@@ -238,7 +207,7 @@ function CelebrantVines({ side, progress }) {
 
 export default function CelebrantShowcase({ celebrants = [], age, weddingYears }) {
   const sectionRef = useRef(null)
-  const progress = useHybridScrollProgress(sectionRef)
+  const progress = useScrollProgress(sectionRef)
 
 
   if (celebrants.length < 2) return null
