@@ -16,7 +16,7 @@ import togetherPhoto from './assets/together.svg'
 import topLeftDesign from './assets/left.svg'
 import topRightDesign from './assets/right.svg'
 import disortDesign from './assets/disort.svg'
-import colorPaletteImg from './assets/new-color-palette-2.png'
+import colorPaletteImg from './assets/final-color-palette.png'
 import './App.css'
 
 
@@ -88,13 +88,13 @@ const CEREMONY_DATA = [
     id: 'candles',
     icon: '🕯️',
     title: '6 Candles',
-    names: ['Sonia Zabala', 'Celia Baniel', 'Ester Kelbio', 'Nikki Safico', 'Sonia Asban', 'Julie Duque'],
+    names: ['Sonia Zabala', 'Celia Baniel', 'Ester Kelbio', 'Nikki Safico', 'Sonia Asban', 'Mercy Sampang'],
   },
   {
     id: 'bible',
     icon: '📖',
     title: 'Bible Verse for Us',
-    names: ['Mheds Diamzon', 'Remedios Lugtu', 'Mercy Sampang', 'Fatima Cada', 'Lorieta Perico', 'Liwayway Mangiliman'],
+    names: ['Mheds Diamzon', 'Remedios Lugtu', 'Julie Duque', 'Fatima Cada', 'Loreta Perico', 'Liwayway Mangiliman'],
   },
 ]
 
@@ -254,7 +254,7 @@ function App() {
 
         <FloralDivider />
         <div className="cine" style={{ '--d': '0.85s' }}>
-          <p className="countdown-event-title" style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', color: 'var(--ink-soft)', marginBottom: '0.65rem', fontSize: '1.05rem', letterSpacing: '0.04em' }}>
+          <p className="countdown-event-title" style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', color: 'var(--ink)', fontWeight: 500, marginBottom: '0.65rem', fontSize: '1.05rem', letterSpacing: '0.04em' }}>
             The celebration starts in:
           </p>
           <Countdown dateISO={dateISO} />
@@ -266,7 +266,7 @@ function App() {
         >
           RSVP
         </a>
-        <div className="hero-rsvp-deadline cine" style={{ '--d': '1.2s', marginTop: '0.75rem', fontSize: '0.85rem', color: 'var(--ink-soft)' }}>
+        <div className="hero-rsvp-deadline cine" style={{ '--d': '1.2s', marginTop: '0.75rem', fontSize: '0.9rem', color: 'var(--ink)', fontWeight: 500 }}>
           <MiniCountdown targetDate="2026-07-13T15:00:00" prefix="RSVP Deadline:" />
         </div>
       </header>
@@ -310,9 +310,9 @@ function App() {
                   alt="Color palette for the event: Lilac, Light Yellow, and Wool. Please avoid wearing shades of pink and dark colors."
                   className="color-palette-img"
                 />
-                <p className="color-palette-attire" style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '1.05rem', color: 'var(--ink-soft)', lineHeight: '1.4' }}>
-                  To complement our garden celebration, ladies are encouraged to wear long dresses, while gentlemen are requested to wear long-sleeved shirts or smart casual attire.<br/>
-                  <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>(Please avoid wearing shades of pink and dark colors)</span>
+                <p className="color-palette-attire" style={{ marginTop: '1rem', fontStyle: 'italic', fontSize: '1.1rem', color: 'var(--ink)', fontWeight: 500, lineHeight: '1.4' }}>
+                  Join us as we renew our vows and celebrate a love strengthened by time, faith, and God's grace.<br/>
+                  <span style={{ fontSize: '1.05rem', fontWeight: 600, display: 'block', marginTop: '0.7rem' }}>Officiating Minister: Ptr. Jeremiah Abay</span>
                 </p>
               </div>
             </div>
@@ -355,7 +355,7 @@ function App() {
           <div className="reveal-item" style={{ '--i': 1 }}>
             <FloralDivider />
           </div>
-          <p className="rsvp-intro reveal-item" style={{ '--i': 2 }}>
+          <p className="rsvp-intro reveal-item" style={{ '--i': 2, color: 'var(--ink)', fontWeight: 500 }}>
             Kindly respond so we can save you a seat among the flowers.
           </p>
           <div className="reveal-item reveal-zoom" style={{ '--i': 3 }}>
